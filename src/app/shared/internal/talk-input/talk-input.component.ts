@@ -25,6 +25,7 @@ export class TalkInputComponent implements OnInit {
   orgList: Array<any>;
   org: string;
   orgType: number;
+  files: Array<any> = [];
   count: number;
   deviceList: Array<any>;
   hasData: boolean;
@@ -123,6 +124,11 @@ export class TalkInputComponent implements OnInit {
   selectedStaff($event) {
     this.staffList = ($event);
   }
+
+  deleteFile(index) {
+    this.files.splice(index, 1);
+  }
+
   getStaffInfo(staffId) {
     this.deviceList.forEach(item => {
       if (item.id === staffId) {
@@ -226,11 +232,11 @@ export class TalkInputComponent implements OnInit {
     this.form.value.chatDate = this.dateFormat(this.startDate);
     this.form.value.orgCode = this.orgList[0].data;
     this.form.value.chatPersonList = this.staffList.map(el => el.data);
-    this.sharedService.post(`http://119.29.144.125:8080/cgfeesys/Chat/add`, JSON.stringify(this.form.value), {
+    this.sharedService.post(`/Chat/add`, JSON.stringify(this.form.value), {
               httpOptions: true
             })
             .subscribe(res => {
-                if (this.file) {
+                if (this.files.length) {
                   this.upload(res.data.id);
                 } else {
                   this.toFirstPage();
@@ -251,7 +257,7 @@ export class TalkInputComponent implements OnInit {
               httpOptions: true
             })
             .subscribe(res => {
-                if (this.file) {
+                if (this.files.length) {
                   this.upload(this.selectedDevice);
                 } else {
                   this.toFirstPage();
@@ -281,19 +287,22 @@ export class TalkInputComponent implements OnInit {
   }
   fileChange($event) {
     this.filename = $event.target.files[0].name;
-    this.file = $event.target.files[0];
+    this.files.push($event.target.files[0]);
   }
 
   upload(userId) {
     const formdata = new FormData();
-    formdata.append('file', this.file);
+    this.files.forEach(file => {
+      formdata.append('file', file);
+    })
     formdata.append('id', userId);
     this.sharedService.post(`/upload/chat`, formdata, {
       httpOptions: false
     })
       .subscribe(res => {
-          this.sharedService.addAlert('通知', res.message);
+        this.sharedService.addAlert('通知', res.message);
         this.toFirstPage();
+        this.files = [];
       }, error => {
         this.sharedService.addAlert('警告', '上传失败，请重试！');
       });

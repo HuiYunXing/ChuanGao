@@ -40,13 +40,21 @@
         <textarea type="text" formControlName="chatContent"></textarea>
       </div>
       <div class="form-item">
-          <p>附件上传(仅支持jpg,png格式)</p>
-          <div class="upload-photo">
-            <input (change)="fileChange($event)" #photo type="file">
-            <span [title]="filename">{{filename}}</span>
-            <div class="upload-photo-btn" (click)="photo.click()">选择文件</div>
-          </div>
+        <p>附件上传</p>
+        <div class="upload-photo">
+          <input (change)="fileChange($event)" #photo type="file">
+          <span [title]="filename">{{filename}}</span>
+          <div class="upload-photo-btn" (click)="photo.click()">选择文件</div>
         </div>
+      </div>
+      <div class="form-item">
+        <ul class="files-ul">
+          <li *ngFor="let file of files; index as i">
+            <span>{{file.name}}</span>
+            <i (click)="deleteFile(i)" class="fa fa-close files-del-btn"></i>
+          </li>
+        </ul>
+      </div>
       <div class="form-btn-container">
         <div class="form-item">
           <button (click)="isChosen = !isChosen" class="form-btn">返回</button>

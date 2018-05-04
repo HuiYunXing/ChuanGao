@@ -67,7 +67,7 @@ export class ClothHistoryComponent implements OnInit {
       { field: 'clothesChangeDate', header: '到期日期', sortItem: 'clothesChangeDate' },
       { field: 'clothesSex', header: '性别', sortItem: 'clothesSex' },
       { field: 'clothesNum', header: '数量', sortItem: 'clothesNum' },
-      { field: 'stationName', header: '收费站', sortItem: 'stationCode' }
+      { field: 'stationName', header: '收费站', sortItem: 'orgName' }
     ];
   }
 

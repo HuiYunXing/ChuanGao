@@ -63,7 +63,7 @@ export class TrainExecuteComponent implements OnInit {
     private sharedService: SharedService
   ) {
     this.form = new FormGroup({
-      trainName: new FormControl('', Validators.nullValidator),
+      trainPlanName: new FormControl('', Validators.nullValidator),
       trainOrgName: new FormControl('', Validators.nullValidator),
       trainDoOrg: new FormControl('', Validators.nullValidator),
       trainStartDate: new FormControl('', Validators.nullValidator),
@@ -105,7 +105,7 @@ export class TrainExecuteComponent implements OnInit {
       { field: 'trainPlanName', header: '培训计划名称', sortItem: 'trainPlanName' },
       { field: 'trainPlanOrgName', header: '发起单位', sortItem: 'trainPlanOrgName' },
       { field: 'trainDoOrgName', header: '落实单位', sortItem: 'trainDoOrgName' },
-      { field: 'hasDo', header: '落实状态', sortItem: 'hasDo' },
+      { field: 'hasDo', header: '落实状态', sortItem: 'trainDoStatus' },
       { field: 'trainPlanStartDate', header: '开始时间', sortItem: 'trainPlanStartDate' },
       { field: 'trainPlanEndDate', header: '结束时间', sortItem: 'trainPlanEndDate' },
     ];
@@ -173,9 +173,11 @@ export class TrainExecuteComponent implements OnInit {
           this.endDate = res.data.trainPlanData.trainEndDate;
           this.startDate = res.data.trainPlanData.trainStartDate;
           this.trainForm.patchValue({trainPlanName: res.data.trainPlanData.trainName});
+          this.trainForm.patchValue(res.data.trainPlanData);
           this.doId = res.data.trainDoListDataList.filter(el => el.trainDoOrgCode === this.orgCode)[0].doId;
       });
   }
+
   getInfo() {
     if (+this.searchForm.value.hasDo === 1) {
       this.param.hasDo = false;
@@ -190,6 +192,7 @@ export class TrainExecuteComponent implements OnInit {
               lock: true
             })
             .subscribe(res => {
+              if(res) {
                 this.count = res.data.count;
                 if (res.data.count > 0) {
                   this.hasData = true;
@@ -198,6 +201,7 @@ export class TrainExecuteComponent implements OnInit {
                   item.hasDo = item.trainTimeLong === 0 ? '已落实' : '未落实';
                 });
                 this.staffList = res.data.trainDoDataList;
+              }
             });
   }
 
@@ -205,6 +209,7 @@ export class TrainExecuteComponent implements OnInit {
     this.filename = $event.target.files[0].name;
     this.file = $event.target.files[0];
   }
+
   dateFormat(date) {
     if (date) {
       const _date = new Date(date);
@@ -226,26 +231,7 @@ export class TrainExecuteComponent implements OnInit {
 
   search() {
     this.getInfo();
-    this.toFirstPage();
   }
-
-  // update() {
-  //   if (this.selectedUser) {
-  //     this.getStaffInfo(this.selectedUser);
-  //     this.isChosen = true;
-  //     this.isAdd = false;
-  //   } else {
-  //     alert('请选择一个人员');
-  //   }
-  // }
-
-  // delete() {
-  //   if (this.selectedUser) {
-  //     this.staffLeave(this.selectedUser);
-  //   } else {
-  //     alert('请选择一个人员');
-  //   }
-  // }
 
   select(val) {
     this.selectedUser = val === this.selectedUser ? '' : val;
@@ -255,21 +241,8 @@ export class TrainExecuteComponent implements OnInit {
     return val === this.selectedUser;
   }
 
-  // staffLeave(selectedUser) {
-  //   const leaveDate = this.dateFormat(new Date());
-  //   this.http.get(`http://119.29.144.125:8080/cgfeesys/StaffMag/staffLeave?userId=${selectedUser}&leaveDate=${leaveDate}`)
-  //           .map(res => res.json())
-  //           .subscribe(res => {
-  //             alert(res.message);
-  //             if (res.code) {
-  //               this.toFirstPage();
-  //             }
-  //           });
-  // }
-
   addStaff() {
     this.form.value.trainTimeLong = this.trainTimeLong;
-    // this.trainForm.value.trainDoTimeLong = this.trainForm.value.trainDoTimeNumber * 0.5;
     this.form.value.trainDoStartDate = this.dateFormat(this.doStartDate);
     this.form.value.trainDoEndDate = this.dateFormat(this.doEndDate);
     this.form.value.userIdList = this.activedStaffList.map(el => el.userId);
@@ -391,17 +364,15 @@ export class TrainExecuteComponent implements OnInit {
     formdata.append('file', this.file);
     formdata.append('id', id);
     this.sharedService.post(`/upload/trainDo`, formdata, {
-      httpOptions: false
+      httpOptions: false,
+      successAlert: true
     }).subscribe(res => {
-        if (res.code) {
-          this.sharedService.addAlert('警告', res.message);
+        if (res) {
           this.file = null;
           this.filename = '';
+          this.getInfo();
         }
-        this.toFirstPage();
-      }, error => {
-        this.sharedService.addAlert('警告', '上传失败，请重试！');
-      });
+      })
   }
   downloadFile(type) {
     if (type === 'do') {

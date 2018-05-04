@@ -110,7 +110,7 @@
           <thead>
             <tr>
               <th></th>
-              <th *ngFor="let field of cols" class="sortable" [class.forward]="field.isSort && order === 0" [class.reverse]="field.isSort && order === 1" (click)="sortByThis(field)">{{field.header}}</th>
+              <th *ngFor="let field of cols" [class.sortable]="field.sortable" [class.forward]="field.isSort && order === 0" [class.reverse]="field.isSort && order === 1" (click)="sortByThis(field)">{{field.header}}</th>
             </tr>
           </thead>
           <tbody>

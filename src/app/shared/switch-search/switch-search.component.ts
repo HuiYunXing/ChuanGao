@@ -59,7 +59,7 @@ export class SwitchSearchComponent implements OnInit {
       userName: new FormControl('', Validators.nullValidator)
     });
     this.cols = [
-      { field: 'orgName', header: '组织名称', sortItem: 'orgCode'},
+      { field: 'orgName', header: '组织名称', sortItem: 'orgName'},
       { field: 'applyUserName', header: '换/顶班申请人', sortItem: 'applyUserName' },
       { field: 'applyTeamsCN', header: '换/顶班班组', sortItem: 'applyTeams' },
       { field: 'applyDate', header: '换/顶班日期', sortItem: 'applyDate' },

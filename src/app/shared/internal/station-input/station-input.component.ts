@@ -21,6 +21,7 @@ export class StationInputComponent implements OnInit {
     meetingNote: '记录人',
     meetingContent: '会议内容'
   };
+  filePath: string;
   orgType: number;
   startDate: string;
   orgCode: Array<any> = [];
@@ -134,6 +135,7 @@ export class StationInputComponent implements OnInit {
         this.startDate = item.meetingDate;
         this.stationName = item.stationName;
         this.activedStaffList = item.meetingJoinPeople;
+        this.filename = item.fileId;
       }
     });
   }
@@ -163,6 +165,7 @@ export class StationInputComponent implements OnInit {
   fileChange($event) {
     this.filename = $event.target.files[0].name;
     this.file = $event.target.files[0];
+    this.upload();
   }
 
   dateFormat(date) {
@@ -179,8 +182,6 @@ export class StationInputComponent implements OnInit {
   add() {
     this.form.reset();
     this.form.patchValue(this.initForm);
-    // this.form.patchValue({orgName: this.orgName});
-    this.filename = '';
     this.isChosen = true;
     this.isAdd = true;
   }
@@ -216,6 +217,14 @@ export class StationInputComponent implements OnInit {
     return val === this.selectedUser;
   }
 
+  init() {
+    this.filename = '';
+    this.filePath = '';
+    this.isAdd = false;
+    this.isChosen = false;
+    this.startDate = '';
+  }
+
   staffLeave(selectedUser) {
     this.sharedService.get(`/StationMeeting/delete?id=${selectedUser}`, {successAlert: true})
             .subscribe(res => {
@@ -242,14 +251,19 @@ export class StationInputComponent implements OnInit {
       // this.form.value.politicalStatus = +this.form.value.politicalStatus;
       // this.form.value.positionalTitle = +this.form.value.positionalTitle;
       // this.form.value.userId = '' + Math.round(1000 * Math.random());
+      if (this.filePath) {
+        this.form.value.filePath = this.filePath;
+      }
       this.sharedService.post(`/StationMeeting/add`, JSON.stringify(this.form.value), {
-                httpOptions: true
+                httpOptions: true,
+                successAlert: true
               })
               .subscribe(res => {
-                  if (this.file) {
-                    this.upload(res.data.id);
-                  }
-
+                  // if (this.file) {
+                  //   this.upload(res.data.id);
+                  // }
+                  this.init();
+                  this.toFirstPage();
               });
     }
   }
@@ -271,15 +285,19 @@ export class StationInputComponent implements OnInit {
       this.data.stationCode = this.orgCode[0].data;
       this.data.id = this.selectedUser;
       this.data.meetingJoinPeople = this.activedStaffList.map(el => el.userId);
-      console.log(this.data);
+      if (this.filePath) {
+        this.data.filePath = this.filePath;
+      }
       this.sharedService.post(`/StationMeeting/update`, JSON.stringify(this.data), {
         httpOptions: true
       })
         .subscribe(res => {
             if (this.file) {
-              this.upload(this.selectedUser);
-            } else {
-              this.toFirstPage();
+              // this.upload(this.selectedUser);
+            // } else {
+            //   this.toFirstPage();
+              this.init();
+              this.getInfo();
             }
         });
     }
@@ -373,20 +391,35 @@ export class StationInputComponent implements OnInit {
     }
   }
 
-  upload(userId) {
+  // upload(userId) {
+  //   const formdata = new FormData();
+  //   formdata.append('file', this.file);
+  //   formdata.append('id', userId);
+  //   this.sharedService.post(`/upload/stationMeeting`, formdata,
+  //   {
+  //     httpOptions: false,
+  //     // successAlert: true
+  //   })
+  //     .subscribe(res => {
+  //       // this.sharedService.addAlert('通知', res.message);
+  //       // this.toFirstPage();
+  //     }, error => {
+  //       this.sharedService.addAlert('警告', '上传失败，请重试！');
+  //     });
+  // }
+  upload() {
     const formdata = new FormData();
     formdata.append('file', this.file);
-    formdata.append('id', userId);
-    this.sharedService.post(`/upload/stationMeeting`, formdata,
-    {
-      httpOptions: false,
-      successAlert: true
-    })
+    this.sharedService
+      .post(
+        '/upload/stationMeeting',
+        formdata,
+        {
+          httpOptions: false,
+          animation: true
+        })
       .subscribe(res => {
-        this.sharedService.addAlert('通知', res.message);
-        this.toFirstPage();
-      }, error => {
-        this.sharedService.addAlert('警告', '上传失败，请重试！');
+        this.filePath = res.data
       });
   }
 

@@ -54,8 +54,8 @@ export class TrainPlanSearchComponent implements OnInit {
     this.isChosen = false;
     this.login = store.select('login');
     this.cols = [
-      { field: 'trainName', header: '培训计划名称', sortItem: 'trainName'  },
-      { field: 'trainOrgName', header: '发起单位', sortItem: 'trainOrgName'  },
+      { field: 'trainPlanName', header: '培训计划名称', sortItem: 'trainPlanName'  },
+      { field: 'trainOrgName', header: '发起单位', sortItem: 'orgName'  },
       { field: 'trainStartDate', header: '计划开始时间', sortItem: 'trainStartDate'  },
       { field: 'trainEndDate', header: '计划结束时间', sortItem: 'trainEndDate'  },
       { field: 'trainWay', header: '培训方式', sortItem: 'trainWay'  },

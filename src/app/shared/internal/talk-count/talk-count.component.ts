@@ -142,7 +142,7 @@ export class TalkCountComponent implements OnInit {
       userId: this.staff.userId,
       reason: this.staff.reason
     };
-    this.sharedService.post('s/Chat/addNoChatReason', JSON.stringify(param) , {
+    this.sharedService.post('/Chat/addNoChatReason', JSON.stringify(param) , {
       httpOptions: true,
       successAlert: true
     })

@@ -75,16 +75,16 @@ export class TrainPlanComponent implements OnInit {
     };
     this.login = store.select('login');
     this.cols = [
-      { field: 'trainPlanName', header: '培训计划名称', sortItem: 'trainPlanName' },
+      { field: 'trainPlanName', header: '培训计划名称', sortItem: 'trainPlanName', sortable: true },
       { field: 'trainDoOrgName', header: '落实单位', sortItem: 'trainDoOrgName' },
-      { field: 'trainStartDate', header: '开始时间', sortItem: 'trainStartDate' },
-      { field: 'trainEndDate', header: '结束时间', sortItem: 'trainEndDate' },
-      { field: 'trainWay', header: '培训方式', sortItem: 'trainWay' },
-      { field: 'trainType', header: '培训类别', sortItem: 'trainType' },
-      { field: 'trainTeacher', header: '培训讲师', sortItem: 'trainTeacher' },
-      { field: 'trainTimeLong', header: '培训课时', sortItem: 'trainTimeLong' },
-      { field: 'trainLoc', header: '培训地点', sortItem: 'trainLoc' },
-      { field: 'trainContent', header: '培训内容', sortItem: 'trainContent' }
+      { field: 'trainStartDate', header: '开始时间', sortItem: 'trainStartDate', sortable: true },
+      { field: 'trainEndDate', header: '结束时间', sortItem: 'trainEndDate', sortable: true },
+      { field: 'trainWay', header: '培训方式', sortItem: 'trainWay', sortable: true },
+      { field: 'trainType', header: '培训类别', sortItem: 'trainType', sortable: true },
+      { field: 'trainTeacher', header: '培训讲师', sortItem: 'trainTeacher', sortable: true },
+      { field: 'trainTimeLong', header: '培训课时', sortItem: 'trainTimeLong', sortable: true },
+      { field: 'trainLoc', header: '培训地点', sortItem: 'trainLoc', sortable: true },
+      { field: 'trainContent', header: '培训内容', sortItem: 'trainContent', sortable: true }
     ];
     this.initForm = {
       trainPlanOrg: '',
@@ -102,20 +102,22 @@ export class TrainPlanComponent implements OnInit {
   }
 
   sortByThis(item) {
-    const index = this.cols.findIndex(el => el.sortItem === item.sortItem);
-    const prev_index = this.cols.findIndex(el => el.isSort);
-    if (this.param.column !== item.sortItem) {
-      this.param.column = item.sortItem;
-      this.order = 0;
-      if (prev_index > -1) {
-        this.cols[prev_index].isSort = false;
+    if (item.sortable) {
+      const index = this.cols.findIndex(el => el.sortItem === item.sortItem);
+      const prev_index = this.cols.findIndex(el => el.isSort);
+      if (this.param.column !== item.sortItem) {
+        this.param.column = item.sortItem;
+        this.order = 0;
+        if (prev_index > -1) {
+          this.cols[prev_index].isSort = false;
+        }
+        this.cols[index].isSort = true;
+      }else {
+        this.order = 1 - this.order;
       }
-      this.cols[index].isSort = true;
-    }else {
-      this.order = 1 - this.order;
+      this.param.order = this.order;
+      this.getInfo();
     }
-    this.param.order = this.order;
-    this.getInfo();
   }
 
   showConfirm() {

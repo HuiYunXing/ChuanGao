@@ -65,7 +65,7 @@ export class TrainExecuteSearchComponent implements OnInit {
       { field: 'trainPlanName', header: '培训计划名称', sortItem: 'trainPlanName' },
       { field: 'trainPlanOrgName', header: '发起单位', sortItem: 'trainPlanOrgName' },
       { field: 'trainDoOrgName', header: '落实单位', sortItem: 'trainDoOrgName' },
-      { field: 'hasDo', header: '落实状态', sortItem: 'hasDo' },
+      { field: 'hasDo', header: '落实状态', sortItem: 'trainDoStatus' },
       { field: 'trainPlanStartDate', header: '计划开始时间', sortItem: 'trainPlanStartDate' },
       { field: 'trainPlanEndDate', header: '计划结束时间', sortItem: 'trainPlanEndDate' },
       // { field: 'trainWay', header: '培训方式', sortItem: 'trainWay' },
