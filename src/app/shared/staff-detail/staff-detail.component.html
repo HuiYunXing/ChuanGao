@@ -2,6 +2,7 @@
 <div class="part-container">
   <div class="basic-info-container">
     <h1 class="part-title">基本信息</h1>
+    <button class="btn return-btn" (click)="goBack()">返回</button>
     <div class="part-content clearfix">
       <div class="img-container">
         <img [attr.src]="data.iconUrl || '/assets/images/staff-photo.jpg'" alt="">
@@ -107,5 +108,4 @@
       </div>
     </div>
   </div>
-  <button class="btn return-btn" (click)="goBack()">返回</button>
 </div>

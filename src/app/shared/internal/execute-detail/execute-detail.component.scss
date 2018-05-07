@@ -56,8 +56,9 @@
 }
 
 .return-btn{
-  width: 100px;
-  height: 30px;
+  width: 50px;
+  height: 20px;
+  line-height: 20px;
   border: none;
   border-radius: 10px;
   background: #6c9cff;
@@ -68,4 +69,11 @@
   font-size: 16px;
   outline: none !important;
   display: block;
+  position: absolute;
+  top: 13px;
+  right: 20px;
+}
+
+.part-container{
+  position: relative;
 }

@@ -225,6 +225,10 @@ export class TrainExecuteComponent implements OnInit {
     this.form.reset();
     this.form.patchValue(this.initForm);
     this.filename = '';
+    this.doStartDate = '';
+    this.doEndDate = '';
+    this.filename = '';
+    this.activedStaffList = [];
     this.isChosen = true;
     this.isAdd = true;
   }

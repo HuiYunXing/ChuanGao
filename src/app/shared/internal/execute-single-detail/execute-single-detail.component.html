@@ -3,9 +3,9 @@
     <div class="basic-info part-container">
       <h1 class="part-title">计划信息</h1>
       <div class="flexBox">
-        <a [attr.href]="doFilePath" target="_blank" *ngIf="doFilePath && doFilePath !== ''">下载落实附件</a>
-        <a [attr.href]="planFilePath" target="_blank"  *ngIf="planFilePath && planFilePath !== ''">下载计划附件</a>
-        <button (click)="goBack()">返回</button>
+        <a [attr.href]="doFilePath" class="btn" target="_blank" *ngIf="doFilePath && doFilePath !== ''">下载落实附件</a>
+        <a [attr.href]="planFilePath" class="btn" target="_blank"  *ngIf="planFilePath && planFilePath !== ''">下载计划附件</a>
+        <button class="btn return-btn" (click)="goBack()">返回</button>
       </div>
       <div class="basic-items part-content">
         <ul class="clearfix">

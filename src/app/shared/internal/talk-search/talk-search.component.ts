@@ -20,6 +20,7 @@ export class TalkSearchComponent implements OnInit {
   isChosen: boolean;
   orgType: string;
   doData: any = {};
+  imgArr: Array<string> = [];
   doFilePath: string;
   hasDo: number;
   orgList: Array<any>;
@@ -35,6 +36,7 @@ export class TalkSearchComponent implements OnInit {
   }
   hasData = false;
   selectionMode = 'single';
+  reg = /.+(.JPEG|.jpeg|.JPG|.jpg|.PNG|.png)$/;
   en = {
     firstDayOfWeek: 0,
     dayNames: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
@@ -60,7 +62,7 @@ export class TalkSearchComponent implements OnInit {
       { field: 'chatType', header: '谈心类型', sortItem: 'chatType' },
       { field: 'chatLoc', header: '谈心地点', sortItem: 'chatLoc' },
       { field: 'chatDate', header: '谈心时间', sortItem: 'chatDate' },
-      { field: 'chatContent', header: '概要内容', sortItem: 'chatContent' }
+      // { field: 'chatContent', header: '概要内容', sortItem: 'chatContent' }
     ];
   }
 
@@ -143,15 +145,18 @@ export class TalkSearchComponent implements OnInit {
   test(val) {
     return val === +this.checkItem;
   }
+
   detail(id) {
     this.isChosen = true;
     this.planList.forEach(item => {
       if (item.id === id) {
         this.doData = item;
         this.doFilePath = item.fileId;
+        this.imgArr = this.doData.chatContent.split(';').filter(el => this.reg.test(el));
       }
     });
   }
+
   download(type) {
     if (type === 'do') {
       window.open(this.doFilePath);

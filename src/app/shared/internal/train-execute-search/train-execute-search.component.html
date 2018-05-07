@@ -119,7 +119,7 @@
               </thead>
               <tbody>
                 <tr *ngFor="let item of staffList">
-                  <td><span class="station" [routerLink]="['../executeDetail']" [queryParams]="{id: item.planId}">落实详情</span></td>
+                  <td><span class="station" [routerLink]="['../executeDetail']" [queryParams]="{id: item.doId, type: 2}">落实详情</span></td>
                   <td *ngFor="let field of cols">{{item[field.field]}}</td>
                 </tr>
               </tbody>

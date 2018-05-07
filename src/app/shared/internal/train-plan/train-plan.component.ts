@@ -40,7 +40,7 @@ export class TrainPlanComponent implements OnInit {
   order: number;
   param: any = {
     page: 0,
-    size: 2,
+    size: 15,
   };
   trainTimeLong = 0.5;
 

@@ -15,7 +15,12 @@
           <li class="basic-info-item address"><span>谈心地点</span>{{doData.chatLoc}}</li>
           <li class="basic-info-item date"><span>谈心时间</span>{{doData.chatDate}}</li>
           <li class="basic-last-item staff"><p>谈心对象</p><div class="text">{{doData.chatUserName}}</div></li>
-          <li class="basic-last-item abstract"><p>谈心内容</p><div class="text">{{doData.chatContent}}</div></li>
+          <li class="basic-last-item abstract">
+            <p>谈心内容</p>
+            <div class="text">
+              <img *ngFor="let pic of imgArr" [attr.src]="pic" alt="">
+            </div>
+          </li>
         </ul>
       </div>
     </div>

@@ -47,6 +47,7 @@ export class TalkInputComponent implements OnInit {
     page: this.page,
     size: this.size
   };
+  chatType = ['一般谈心', '重要谈心'];
 
   constructor(
     private store: Store<any>,
@@ -73,8 +74,7 @@ export class TalkInputComponent implements OnInit {
     this.login = store.select('login');
     this.initstaff = '';
     this.cols = [
-      // { field: 'orgName', header: '单位名称', sortItem: 'chatLeader' },
-      { field: 'chatType', header: '谈心类型', sortItem: 'chatType' },
+      { field: 'chatTypeCN', header: '谈心类型', sortItem: 'chatType' },
       { field: 'chatLeader', header: '谈心人员', sortItem: 'chatLeader' },
       { field: 'chatUserName', header: '谈心对象', sortItem: 'chatUserName' },
       { field: 'chatLoc', header: '谈心地点', sortItem: 'chatLoc' },
@@ -132,11 +132,11 @@ export class TalkInputComponent implements OnInit {
   getStaffInfo(staffId) {
     this.deviceList.forEach(item => {
       if (item.id === staffId) {
-        if (item.chatType === '一般谈心') {
-          item.chatType = '0';
-        } else {
-          item.chatType = '1';
-        }
+        // if (item.chatType === '一般谈心') {
+        //   item.chatType = '0';
+        // } else {
+        //   item.chatType = '1';
+        // }
         this.form.patchValue(item);
         this.initstaff = item.chatUserName;
         this.startDate = item.chatDate;
@@ -149,6 +149,7 @@ export class TalkInputComponent implements OnInit {
       }
     });
   }
+
   getInfo() {
     if (this.searchOrg.length !== 0) {
       this.param.orgList = this.searchOrg.map(el => el.data);
@@ -162,11 +163,12 @@ export class TalkInputComponent implements OnInit {
           this.hasData = true;
         }
         res.data.chatDataList.forEach(item => {
-          if (item.chatType === 0) {
-            item.chatType = '一般谈心';
-          } else {
-            item.chatType = '重要谈心';
-          }
+          // if (item.chatType === 0) {
+          //   item.chatType = '一般谈心';
+          // } else {
+          //   item.chatType = '重要谈心';
+          // }
+          item.chatTypeCN = this.chatType[item.chatType];
         });
         this.deviceList = res.data.chatDataList;
       });
@@ -186,7 +188,9 @@ export class TalkInputComponent implements OnInit {
   add() {
     this.form.reset();
     this.form.patchValue(this.initForm);
-    // this.form.patchValue({orgName: this.orgName});
+    this.startDate = '';
+    this.filename = '';
+    this.initstaff = '';
     this.isChosen = true;
     this.isAdd = true;
   }

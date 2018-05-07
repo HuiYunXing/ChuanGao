@@ -13,12 +13,14 @@ export class ExecuteDetailComponent implements OnInit {
   countList: Array<any>;
   trainPlanData: any;
   cols: any;
+  type: number;
 
   constructor(
     private router: ActivatedRoute,
     private sharedService: SharedService
   ) {
     this.id = this.router.snapshot.queryParams['id'];
+    this.type = this.router.snapshot.queryParams['type'];
     this.cols = [
       { field: 'trainName', header: '培训计划名称' },
       { field: 'trainOrgName', header: '发起单位' },
@@ -33,6 +35,14 @@ export class ExecuteDetailComponent implements OnInit {
   }
 
   getInfo(id) {
+    if (+this.type === 1) {
+      this.getByPlan(id);
+    }else {
+      this.getByDo(id);
+    }
+  }
+
+  getByPlan(id) {
     this.sharedService
       .get(`/Train/planGetById?id=${id}`, {
         animation: true
@@ -40,13 +50,36 @@ export class ExecuteDetailComponent implements OnInit {
       .subscribe(res => {
         this.trainPlanData = res.data.trainPlanData;
         res.data.trainDoListDataList.forEach(el => {
-          // el.trainDoDetailDataList.forEach(element => {
           el.trainHasDo = el.trainTimeLong === 0 ? '已落实' : '未落实';
-          // })
         });
         this.countList = res.data.trainDoListDataList;
         window.sessionStorage.setItem('execute', JSON.stringify(res.data));
+      });
+  }
 
+  getByDo(id) {
+    this.sharedService
+      .get(`/Train/doGetById?id=${id}`, {
+        animation: true
+      })
+      .subscribe(res => {
+        this.trainPlanData = res.data.trainPlanData;
+        // res.data.trainDoData.trainDoDetailDataList = res.data.trainDoDetailDataList;
+        // res.data.trainDoData.trainHasDo = res.data.trainDoData.trainTimeLong === 0 ? '已落实' : '未落实';
+        // this.countList = [res.data.trainDoData];
+        const data = {
+          trainPlanData: res.data.trainPlanData,
+          trainDoListDataList: [
+            res.data.trainDoData
+          ]
+        }
+        data.trainDoListDataList.forEach(el => {
+          el.trainHasDo = el.trainTimeLong === 0 ? '已落实' : '未落实';
+          el.trainDoDetailDataList = res.data.trainDoDetailDataList;
+        })
+        this.countList = data.trainDoListDataList;
+        console.log(data);
+        window.sessionStorage.setItem('execute', JSON.stringify(data));
       });
   }
 

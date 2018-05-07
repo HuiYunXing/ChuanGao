@@ -17,7 +17,7 @@ export class TalkCountComponent implements OnInit {
   orgList: Array<any>;
   year: string;
   yearList: Array<number> = [];
-  quarter: string;
+  quarter: number;
   staffList: Array<Object>;
   staff: any;
   updateOptions: any;
@@ -35,7 +35,7 @@ export class TalkCountComponent implements OnInit {
     private store: Store<any>,
     private sharedService: SharedService
   ) {
-    this.quarter = '1';
+    this.quarter = Math.floor((new Date()).getMonth() / 3) + 1;
     this.data1 = [];
     this.data2 = [];
     this.reasonList = [];
@@ -152,6 +152,12 @@ export class TalkCountComponent implements OnInit {
     });
   }
   ngOnInit() {
+    const year = (new Date()).getFullYear();
+    for (let i = 0; i < 10; i++) {
+      this.yearList[i] = year - i;
+    }
+    this.year = '' + year;
+
     this.login.subscribe(res => {
       if (res) {
         this.orgType = res.orgType;
@@ -159,7 +165,8 @@ export class TalkCountComponent implements OnInit {
         this.orgName = res.orgName;
         this.orgList = [{
           data: res.orgCode,
-          label: res.orgName
+          label: res.orgName,
+          orgType: res.orgType
         }];
         if (this.orgType === 3) {
           this.getStaff();
@@ -168,11 +175,6 @@ export class TalkCountComponent implements OnInit {
       }
     }).unsubscribe();
 
-    const year = (new Date()).getFullYear();
-    for (let i = 0; i < 10; i++) {
-      this.yearList[i] = year - i;
-    }
-    this.year = '' + year;
     this.options = {
       legend: {
         data: ['一般谈心', '重要谈心'],
