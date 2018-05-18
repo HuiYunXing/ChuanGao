@@ -134,15 +134,15 @@ export class TrainExecuteSearchComponent implements OnInit {
     }
   }
   getInfo() {
-    // this.form.value.trainStartDate = this.dateFormat(this.startTime);
-    // this.form.value.trainEndDate = this.dateFormat(this.endTime);
     this.form.value.hasDo = +this.form.value.hasDo;
     this.form.value.orgList = this.orgList.map(el => el.data);
-    // this.form.value.trainDoOrgList = this.trainDoOrgList.map(el => el.data);
     const keys = Object.keys(this.form.value);
     keys.forEach(el => {
       this.param[el] = this.form.value[el];
     });
+    if (this.param.hasDo === -1) {
+      delete this.param.hasDo;
+    }
     this.sharedService.post('/Train/doGet', JSON.stringify(this.param), {
       httpOptions: true,
       animation: true,
@@ -154,7 +154,7 @@ export class TrainExecuteSearchComponent implements OnInit {
           this.hasData = true;
         }
         res.data.trainDoDataList.forEach(item => {
-          item.hasDo = item.hasDo === 0 ? '未落实' : '已落实';
+          item.hasDo = +item.trainTimeLong === 0 ? '未落实' : '已落实';
         });
         this.staffList = res.data.trainDoDataList;
 

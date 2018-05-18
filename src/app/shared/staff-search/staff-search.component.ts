@@ -18,6 +18,7 @@ export class StaffSearchComponent implements OnInit {
   hireDate: string;
   count: number;
   initOrgName: string;
+  orgType: number;
   work_post = work_post;
   politics = politics;
   educational = educational;
@@ -157,6 +158,26 @@ export class StaffSearchComponent implements OnInit {
       });
   }
 
+  setManager(id, isAdmin) {
+    const param = [{
+      userId: id,
+      isAdmin: isAdmin
+    }]
+    this.sharedService
+      .post(
+        '/Super/setManager',
+        JSON.stringify(param),
+        {
+          httpOptions: true,
+          successAlert: true,
+          animation: true
+        }
+      )
+      .subscribe(res => {
+        this.getInfo();
+      })
+  }
+
   resetPwd(id) {
     this.sharedService.get(`/resetPassword?userId=${id}`, {
       animation: true
@@ -170,6 +191,7 @@ export class StaffSearchComponent implements OnInit {
     this.login.subscribe(res => {
       if (res) {
         this.initOrgName = res.orgName;
+        this.orgType = res.orgType;
         this.orgList = [{
           data: res.orgCode,
           orgType: res.orgType

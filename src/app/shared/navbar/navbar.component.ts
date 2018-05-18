@@ -70,7 +70,7 @@ export class NavbarComponent implements OnInit {
     for (let i = 0; i < urlCount; i++) {
       parentUrl += '../';
     }
-    if ('shift' === _type || 'return' === _type) {
+    if ('shift' === _type) {
       this.router.navigate([parentUrl + urlList[1] + '/staff/switchEdit']);
     }
     else if ('replace' === _type) {
@@ -81,6 +81,9 @@ export class NavbarComponent implements OnInit {
     }
     else if ('editPassword' === _type) {
       this.router.navigate([parentUrl + urlList[1] + '/editPassword']);
+    }
+    else if ('return' === _type) {
+      this.router.navigate([parentUrl + urlList[1] + '/staff/returnEdit']);
     }
   }
 

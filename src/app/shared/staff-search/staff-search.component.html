@@ -107,6 +107,7 @@
               <th *ngFor="let field of cols" [class.sortable]="field.sortable" [class.forward]="field.isSort && order === 0" [class.reverse]="field.isSort && order === 1" (click)="sortByThis(field)">{{field.header}}</th>
               <th>查看明细</th>
               <th>重置密码</th>
+              <th>设置管理员</th>
             </tr>
           </thead>
           <tbody>
@@ -114,6 +115,10 @@
               <td *ngFor="let field of cols">{{item[field.field]}}</td>
               <td><img [routerLink]="['../../staffDetail']" [queryParams]="{id: item.userId}" src="/assets/images/table-btn1.png"></td>
               <td><button (click)="resetPwd(item.userId)" class="btn reset-btn">重置</button></td>
+              <td>
+                <button *ngIf="item.orgType > orgType && !item.isAdmin" class="btn reset-btn" (click)="setManager(item.userId, 1)">设置管理员</button>
+                <button *ngIf="item.orgType > orgType && item.isAdmin" class="btn reset-btn" (click)="setManager(item.userId, 0)">取消管理员</button>
+              </td>
             </tr>
           </tbody>
         </table>

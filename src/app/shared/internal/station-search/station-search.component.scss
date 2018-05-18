@@ -6,23 +6,41 @@
       .basic-info{
         min-width: 550px;
         width: 100%;
+        position: relative;
+
         .btn-center{
-          text-align: center;
+          position: absolute;
+          right: 15px;
+          top: 13px;
+
           button{
-            width: 120px;
-            height: 40px;
+            // width: 120px;
+            // height: 40px;
+            // border: none;
+            // border-radius: 10px;
+            // background: #6c9cff;
+            // cursor: pointer;
+            // color: #fff;
+            // font-size: 16px;
+            // outline: none !important;
+            display: inline-block;
+            height: 20px;
+            line-height: 20px;
             border: none;
             border-radius: 10px;
             background: #6c9cff;
+            margin: auto;
+            margin-bottom: 20px;
             cursor: pointer;
             color: #fff;
             font-size: 16px;
             outline: none !important;
+            margin-left: 10px;
           }
         }
         .basic-items{
           min-height: calc(100% - 120px);
-    
+
           ul{
             .basic-last-item{
               float: left;
@@ -45,7 +63,7 @@
               font-size: 16px;
               color: #999;
               margin-bottom: 20px;
-    
+
               span{
                 color: #333;
                 margin-right: 5px;
@@ -59,32 +77,32 @@
       width: 25%;
       min-width: 315px;
     }
-  
+
     .table-container{
       width: calc(75% - 20px);
       max-width: calc(100% - 335px);
     }
   }
-  
+
   form{
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;
-  
+
     .form-item{
       width: 100%;
       margin-bottom: 20px;
-  
+
       p{
         font-size: 16px;
         color: #333;
         margin-bottom: 5px;
-  
+
         .form-required{
           color: red;
         }
       }
-  
+
       .upload-photo{
         width: calc(100% - 2px);
         padding-right: 0px;
@@ -92,11 +110,11 @@
         border-radius: 5px;
         box-shadow: none;
         border: 1px solid #d9d9d9;
-  
+
         input{
           display: none;
         }
-  
+
         span{
           display: inline-block;
           line-height: 40px;
@@ -105,7 +123,7 @@
           overflow: hidden;
           text-indent: 15px;
         }
-  
+
         .upload-photo-btn{
           float: right;
           margin: 5px;
@@ -120,7 +138,7 @@
           cursor: pointer;
         }
       }
-  
+
       input{
         width: calc(100% - 15px);
         padding-right: 15px;
@@ -129,28 +147,28 @@
         border-radius: 5px;
         box-shadow: none;
         border: 1px solid #d9d9d9;
-  
+
         &:disabled{
           background: #eee;
         }
       }
-  
+
       .tree-container{
         width: 100%;
         height: 38px;
         border-radius: 5px;
         border: 1px solid #d9d9d9;
       }
-  
+
       select{
         width: 100%;
         height: 40px;
         background: #fff;
       }
-  
+
       &.form-textarea{
         width: 95%;
-  
+
         textarea{
           width: calc(100% - 30px);
           height: 70px;
@@ -160,14 +178,14 @@
           resize: none;
         }
       }
-  
+
       &.form-checkbox{
         p{
           display: inline-block;
           line-height: 40px;
         }
       }
-  
+
       button{
         width: 100%;
         height: 40px;
@@ -181,10 +199,10 @@
         outline: none !important;
       }
     }
-  
+
     .form-checkbox{
       width: 100%;
-  
+
       p{
         font-size: 16px;
         color: #333;
@@ -192,19 +210,19 @@
         display: inline-block;
         line-height: 40px;
       }
-  
+
       >div {
         height: 40px;
         line-height: 40px;
         margin-bottom: 20px;
         display: flex;
         justify-content: space-between;
-  
+
         label{
           font-size: 14px;
           margin-right: 5px;
           width: 33%;
-  
+
           div{
             display: inline-block;
             height: 18px;
@@ -215,34 +233,34 @@
             top: 6px;
             margin-right: 5px;
             border-radius: 10px;
-  
+
             &.checked{
               border: 6px solid #6c9cff;
               height: 8px;
               width: 8px;
             }
           }
-  
+
           input{
             display: none;
           }
         }
       }
-  
+
     }
   }
-  
+
   .scroll-table-container{
-  
+
     .part-content{
-  
+
       >div {
         overflow: scroll;
         padding-bottom: 10px;
-  
+
         .myTable{
           min-width: 100%;
-  
+
           th{
             background: #e2ebff;
             padding: 0 30px;
@@ -254,7 +272,7 @@
             color: #666;
             white-space: nowrap;
           }
-  
+
           td{
             padding: 0 30px;
             white-space: nowrap;
@@ -265,7 +283,7 @@
             height: 40px;
             line-height: 40px;
             color: #666;
-  
+
             img{
               cursor: pointer;
             }

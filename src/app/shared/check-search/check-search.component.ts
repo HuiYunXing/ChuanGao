@@ -42,13 +42,6 @@ export class CheckSearchComponent implements OnInit {
     private store: Store<any>
   ) {
     this.login = store.select('login');
-    const year = (new Date()).getFullYear();
-    for (let i = 0; i < 10; i++) {
-      this.yearList[i] = year - i;
-    }
-    this.form = new FormGroup({
-      year: new FormControl('-1', Validators.nullValidator)
-    });
     this.cols = [
       { field: 'userName', header: '收费员名称' },
       { field: 'year', header: '考核年度' },
@@ -61,6 +54,13 @@ export class CheckSearchComponent implements OnInit {
       { field: 'mandarinLevelEvaluate', header: '普通话评定时间' },
       { field: 'picUrl', header: '证书图片' }
     ];
+    const year = (new Date()).getFullYear();
+    for (let i = 0; i < 10; i++) {
+      this.yearList[i] = year - i;
+    }
+    this.form = new FormGroup({
+      year: new FormControl(year, Validators.nullValidator)
+    });
   }
 
   dateFormat(date) {
@@ -136,17 +136,10 @@ export class CheckSearchComponent implements OnInit {
           data: res.orgCode,
           orgType: this.orgType
         }];
+        if (res.orgType === 3) {
+          this.getInfo(this.page, this.size);
+        }
       }
     }).unsubscribe();
-    const year = (new Date()).getFullYear();
-
-    for (let i = 0; i < 10; i++) {
-      this.yearList[i] = year - i;
-    }
-
-    this.form.patchValue({
-      year: this.yearList[0]
-    });
   }
-
 }

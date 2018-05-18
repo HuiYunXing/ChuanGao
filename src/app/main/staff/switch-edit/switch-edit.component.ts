@@ -347,6 +347,10 @@ export class SwitchEditComponent implements OnInit {
         param.applyChangeType = this.applyChangeType;
         param.remark = this.form.value.remark;
         param.checkUserId = this.userId;
+        if (this.form.value.returnShift && this.form.value.returnDate) {
+          param.returnShift = this.form.value.returnShift;
+          param.returnDate = this.form.value.returnDate;
+        }
         this.postHttp(param);
       }
     }

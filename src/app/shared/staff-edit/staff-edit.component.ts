@@ -3,7 +3,7 @@ import 'rxjs/add/operator/map';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { work_post, politics, educational } from '../../store/translate';
+import { work_post, politics, educational, list_group } from '../../store/translate';
 import { SharedService } from '../../service/shared-service.service';
 
 @Component({
@@ -31,6 +31,7 @@ export class StaffEditComponent implements OnInit {
   work_post = work_post;
   politics = politics;
   educational = educational;
+  list_group = list_group;
   updateUrl = `http://119.29.144.125:8080/cgfeesys/User/setUserDetail`;
   cols: Array<any>;
   selectedUser = '';
@@ -92,8 +93,8 @@ export class StaffEditComponent implements OnInit {
       { field: 'practitionerCertificate', header: '从业证书', sortItem: 'practitionerCertificate' },
       { field: 'collectionSysId', header: '系统工号', sortItem: 'collectionSysId' },
       { field: 'workLicense', header: '上岗证编号', sortItem: 'workLicense' },
-      { field: 'listGroup', header: '班组', sortItem: 'listGroup' },
-      { field: 'changeTime', header: '变更时间', sortItem: 'changeTime' },
+      { field: 'listGroupCN', header: '班组', sortItem: 'listGroup' },
+      // { field: 'changeTime', header: '变更时间', sortItem: 'changeTime' },
       { field: 'emergencyContact', header: '紧急联系人', sortItem: 'emergencyContact' },
       { field: 'emergencyPhone', header: '紧急联系电话', sortItem: 'emergencyPhone' }
     ];
@@ -177,6 +178,7 @@ export class StaffEditComponent implements OnInit {
               el.politicalStatus = this.politics[el.politicalStatus];
               el.workPost = this.work_post[el.workPost];
               el.educational = this.educational[el.educational];
+              el.listGroupCN = this.list_group[el.listGroup];
               return el;
             });
           }

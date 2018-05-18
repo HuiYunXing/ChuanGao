@@ -183,19 +183,23 @@ export class TeamScheduleSearchComponent implements OnInit {
     this.form.value.endTime = this.dateFormat(this.endTime);
     this.form.value.stationCode = this.orgList[0].data;
     this.form.value.teamsGroup = +this.form.value.teamsGroup;
-    const param = {};
+    const param: any = {};
     const keys = Object.keys(this.form.value);
     keys.forEach(el => {
       if (this.form.value[el] || this.form.value[el] === 0) {
         param[el] = this.form.value[el];
       }
     });
+    if (param.teamsGroup === 0) {
+      delete param.teamsGroup;
+    }
     this.sharedService.post('/Schedule/getTeamSchedule', JSON.stringify(param) , {
-              httpOptions: true
+              httpOptions: true,
+              animation: true
             })
             .subscribe(res => {
-                this.secheduleList = res.data.teamScheduleDataList;
-                this.bindSechedule();
+              this.secheduleList = res.data.teamScheduleDataList;
+              this.bindSechedule();
             });
   }
 

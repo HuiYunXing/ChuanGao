@@ -4,8 +4,8 @@
     <div class="basic-info part-container">
       <h1 class="part-title">谈心记录</h1>
       <div class="btn-center">
-        <button (click)="download('do')" *ngIf="doFilePath !== ''">下载文件/预览</button>
-        <button (click)="isChosen = !isChosen">返回</button>
+        <button class="btn" (click)="download('do')" *ngIf="doFilePath !== ''">下载文件/预览</button>
+        <button class="btn" (click)="isChosen = !isChosen">返回</button>
       </div>
       <div class="basic-items part-content">
         <ul class="clearfix">

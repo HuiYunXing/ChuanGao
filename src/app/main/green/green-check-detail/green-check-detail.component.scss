@@ -106,3 +106,31 @@
   }
 }
 
+.images-ul{
+
+  .image-li{
+    float: left;
+    width: 170px;
+    height: 170px;
+    position: relative;
+    margin-right: 20px;
+
+    img{
+      width: 100%;
+      height: 100%;
+    }
+
+    p{
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 20px;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      line-height: 20px;
+      font-size: 14px;
+      text-align: center;
+      color: #fff;
+    }
+  }
+}

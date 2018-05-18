@@ -128,7 +128,9 @@ export class StationSearchComponent implements OnInit {
           this.hasData = true;
         }
         res.data.stationMeetingDataList.forEach(el => {
-          el.meetingJoinPeople = el.meetingJoinPeople.map(item => item.userName).join(',');
+          if (el.meetingJoinPeople && el.meetingJoinPeople.length) {
+            el.meetingJoinPeople = el.meetingJoinPeople.map(item => item.userName).join(',');
+          }
         })
         this.planList = res.data.stationMeetingDataList;
       });

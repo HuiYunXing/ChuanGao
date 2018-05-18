@@ -56,7 +56,36 @@
         <div class="info-container">
           <p class="data-title">检查图片</p>
           <div class="clearfix">
-
+            <ul class="images-ul clearfix">
+              <li class="image-li" *ngIf="data.image1">
+                <img [attr.src]="data.image1">
+                <p>正面</p>
+              </li>
+              <li class="image-li" *ngIf="data.image2">
+                <img [attr.src]="data.image2">
+                <p>开箱</p>
+              </li>
+              <li class="image-li" *ngIf="data.image3">
+                <img [attr.src]="data.image3">
+                <p>车辆侧后</p>
+              </li>
+              <li class="image-li" *ngIf="data.image4">
+                <img [attr.src]="data.image4">
+                <p>车辆含驾驶员</p>
+              </li>
+              <li class="image-li" *ngIf="data.image5">
+                <img [attr.src]="data.image5">
+                <p>称重图片</p>
+              </li>
+              <li class="image-li" *ngIf="data.image6">
+                <img [attr.src]="data.image6">
+                <p>行驶证</p>
+              </li>
+              <li class="image-li" *ngIf="data.image7">
+                <img [attr.src]="data.image7">
+                <p>驾驶证</p>
+              </li>
+            </ul>
           </div>
         </div>
       </div>

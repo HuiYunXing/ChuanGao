@@ -63,14 +63,14 @@
         <option value="100">站监控站</option>
       </select>
     </div>
-    <div *ngIf="activedType !== 5" class="staffList-container">
+    <div *ngIf="activedType != 5" class="staffList-container">
       <ul class="clearfix">
         <li (click)="chooseStaff(staff)" class="staffList-li clearfix" *ngFor="let staff of staffList">
           <p>{{staff.userName}}</p><div [class.chosen]="staff.choose"></div>
         </li>
       </ul>
     </div>
-    <div *ngIf="activedType === 5">
+    <div *ngIf="activedType == 5">
       <div class="teams-select-container">
         <p>请假人员</p>
         <select [(ngModel)]="leaveUser">

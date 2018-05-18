@@ -13,7 +13,8 @@ export class SharedService {
   bsModalRef: BsModalRef;
   loadingModalRef: BsModalRef;
 
-  private ip = `http://119.29.144.125:8080/cgfeesys`;
+  // private ip = `http://119.29.144.125:8080/cgfeesys`; // 测试服务器
+  private ip = `http://171.217.92.230:20088/cgfeesys`;  // 客户服务器
   private loadingLock: boolean;
 
   constructor(
@@ -113,13 +114,13 @@ export class SharedService {
         .subscribe(res => {
           this.clearLock();
           if (res.code) {
-            obser.next(res);
             if (options.animation) {
               this.closeLoadingAnimation();
             }
             if (options.successAlert) {
               this.addAlert('通知', res.message);
             }
+            obser.next(res);
           }else {
             this.addAlert('警告', res.message);
             if (options.animation) {

@@ -44,41 +44,50 @@ export class AttendanceEditComponent implements OnInit {
     this.attendanceList = [
       {
         value: '1',
-        label: '实际上班'
+        label: '实际上班',
+        staff: []
       }
     ];
     this.initType = [
       {
         value: '2',
-        label: '替班'
+        label: '替班',
+        staff: []
       },
       {
         value: '3',
-        label: '加班'
+        label: '加班',
+        staff: []
       },
       {
         value: '4',
-        label: '休息'
+        label: '休息',
+        staff: []
       },
       {
         value: '5',
-        label: '请假'
+        label: '请假',
+        staff: []
       },
       {
         value: '6',
-        label: '还班'
+        label: '还班',
+        staff: []
       },
       {
         value: '7',
-        label: '旷工'
+        label: '旷工',
+        staff: []
       },
       {
         value: '8',
-        label: '早退'
+        label: '早退',
+        staff: []
       },
       {
         value: '9',
-        label: '迟到'
+        label: '迟到',
+        staff: []
       }
     ];
     this.freeItemsList = this.initType;
@@ -145,7 +154,8 @@ export class AttendanceEditComponent implements OnInit {
           this.attendanceList = [
             {
               value: '1',
-              label: '实际上班'
+              label: '实际上班',
+              staff: []
             }
           ];
           this.applyDate = '';

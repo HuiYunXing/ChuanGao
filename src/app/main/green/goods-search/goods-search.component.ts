@@ -43,7 +43,7 @@ export class GoodsSearchComponent implements OnInit {
     ).subscribe(
       res => {
         this.goodsDetail = res.data.sort((a, b) => a.pCode - b.pCode);
-        this.dataArr.array.forEach(el => {
+        this.dataArr.forEach(el => {
           el.children = res.data.filter(item => item.pCode === el.code);
         });
       }

@@ -79,7 +79,7 @@ export class TalkInputComponent implements OnInit {
       { field: 'chatUserName', header: '谈心对象', sortItem: 'chatUserName' },
       { field: 'chatLoc', header: '谈心地点', sortItem: 'chatLoc' },
       { field: 'chatDate', header: '谈心时间', sortItem: 'chatDate' },
-      { field: 'chatContent', header: '概要内容', sortItem: 'chatContent' }
+      // { field: 'chatContent', header: '概要内容', sortItem: 'chatContent' }
     ];
     this.initForm = {
       chatLeader: '',

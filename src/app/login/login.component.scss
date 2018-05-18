@@ -81,3 +81,32 @@
     text-align: center;
   }
 }
+
+
+@media screen and (max-width: 1200px) {
+  .bg-container{
+
+    .log-in__container{
+      right: 3%;
+      width: 480px;
+      height: 480px;
+
+      h1{
+        font-size: 26px;
+      }
+
+      .log-in__form{
+        padding: 50px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1440px) and (min-width: 1200px) {
+  .bg-container{
+
+    .log-in__container{
+      right: 5%;
+    }
+  }
+}
