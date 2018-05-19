@@ -66,7 +66,12 @@ export class SwitchChooseComponent implements OnInit, DoCheck {
     })
     .subscribe(res => {
               this.loadingSchedule = false;
-              this.scheduleList = res.data;
+              const _month = (new Date()).getMonth();
+              const _thisMonth = _month;
+              this.scheduleList = res.data.filter(el => {
+                const diff = Math.abs((new Date(el.scheduleDate)).getMonth() - _thisMonth);
+                return diff === 0 || diff === 1 || diff === 11;
+              });
             });
   }
 

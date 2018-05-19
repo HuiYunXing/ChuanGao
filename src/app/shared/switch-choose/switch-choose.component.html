@@ -12,7 +12,7 @@
     <ul class="ul-body-container">
       <li (click)="chooseSchedule(schedule)" *ngFor="let schedule of scheduleList; index as i">
         <ul class="ul-header-container">
-          <li class="li-index">{{i}}</li>
+          <li class="li-index">{{i + 1}}</li>
           <li class="li-userName">{{schedule.userName}}</li>
           <li class="li-scheduleDate">{{schedule.scheduleDate}}</li>
           <li class="li-teamsGroup">{{list_group[schedule.teamsGroup]}}</li>

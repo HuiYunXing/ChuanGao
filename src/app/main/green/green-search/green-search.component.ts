@@ -62,7 +62,7 @@ export class GreenSearchComponent implements OnInit {
       { field: 'shiftCN', header: '班次', sortItem: 'shift' },
       { field: 'firstCheckCN', header: '初检结果', sortItem: 'firstCheck' },
       { field: 'dealResultCN', header: '放行方式', sortItem: 'dealResult' },
-      { field: 'money', header: '免/缴金额(元)', sortItem: 'money' },
+      { field: 'moneyNew', header: '免/缴金额(元)', sortItem: 'money' },
       { field: 'shiftCar', header: '出口车道', sortItem: 'shiftCar' }
     ];
     this.form = new FormGroup({
@@ -156,6 +156,7 @@ export class GreenSearchComponent implements OnInit {
           el.shiftCN = this.shift[el.shift - 1];
           el.firstCheckCN = this.firstCheck[el.firstCheck];
           el.dealResultCN = this.dealResult[el.dealResult - 1];
+          el.moneyNew = (el.money / 100).toFixed(2);
         });
         if (res.data.count) {
           this.hasData = true;

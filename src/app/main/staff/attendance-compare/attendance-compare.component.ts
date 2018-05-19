@@ -92,7 +92,7 @@ export class AttendanceCompareComponent implements OnInit {
 
   bindSechedule() {
     const _month = (new Date(this.now)).getMonth();
-    const _thisMonth = _month - 1;
+    const _thisMonth = _month;
     const _thisMonthList = this.secheduleList.filter(el => {
       const diff = Math.abs((new Date(el.scheduleDate)).getMonth() - _thisMonth);
       return diff === 0 || diff === 1 || diff === 11;

@@ -52,7 +52,7 @@ export class BasicInfoComponent implements OnInit {
   }
 
   getInfo(orgCode) {
-    this.sharedService.get(`/BaseInfo/getDefaultDivision?divisionCode=${orgCode}`,{successAlert:true, animation: true})
+    this.sharedService.get(`/BaseInfo/getDefaultDivision?divisionCode=${orgCode}`,{animation: true})
       .subscribe(res => {
         this.form.patchValue(res.data);
         this.checkItem = res.data.status;
@@ -61,10 +61,6 @@ export class BasicInfoComponent implements OnInit {
 
   submit() {
     this.form.value.status = +this.checkItem;
-    // const spaceArr = this.keys.filter(el => !this.form.value[el]).map(el => this.trans[el]);
-    // if (spaceArr.length > 0) {
-    //   alert(`${spaceArr.join(',')}为空`);
-    // }else {
     this.sharedService
       .post(
         '/BaseInfo/setDefaultDivision',
@@ -76,7 +72,6 @@ export class BasicInfoComponent implements OnInit {
         }
       )
       .subscribe();
-    // }
   }
 
   check($event) {

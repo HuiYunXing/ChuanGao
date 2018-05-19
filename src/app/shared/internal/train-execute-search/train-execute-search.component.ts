@@ -154,7 +154,7 @@ export class TrainExecuteSearchComponent implements OnInit {
           this.hasData = true;
         }
         res.data.trainDoDataList.forEach(item => {
-          item.hasDo = +item.trainTimeLong === 0 ? '未落实' : '已落实';
+          item.hasDo = +item.trainTimeLong === 0 ? '已落实' : '未落实';
         });
         this.staffList = res.data.trainDoDataList;
 
