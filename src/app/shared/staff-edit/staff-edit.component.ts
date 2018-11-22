@@ -32,7 +32,6 @@ export class StaffEditComponent implements OnInit {
   politics = politics;
   educational = educational;
   list_group = list_group;
-  updateUrl = `http://119.29.144.125:8080/cgfeesys/User/setUserDetail`;
   cols: Array<any>;
   selectedUser = '';
   isAdd: boolean;

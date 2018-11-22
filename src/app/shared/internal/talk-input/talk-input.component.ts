@@ -29,7 +29,6 @@ export class TalkInputComponent implements OnInit {
   count: number;
   deviceList: Array<any>;
   hasData: boolean;
-  updateUrl = `http://119.29.144.125:8080/cgfeesys/User/setUserDetail`;
   cols: Array<any>;
   staffList: Array<any>;
   isAdd: boolean;

@@ -3,6 +3,7 @@ import { Http } from '@angular/http';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import { SharedService } from '../../../service/shared-service.service';
 
 @Component({
   selector: 'app-cloth-choose',
@@ -29,7 +30,8 @@ export class ClothChooseComponent implements OnInit {
   };
 
   constructor(
-    private http: Http
+    private http: Http,
+    private sharedService: SharedService
   ) {
 
   }
@@ -41,11 +43,11 @@ export class ClothChooseComponent implements OnInit {
   }
 
   getInfo() {
-    this.http.get('http://119.29.144.125:8080/cgfeesys/Clothes/getClothesInfo')
-        .map(res => res.json())
-        .subscribe(res => {
-          this.clothList = res.data;
-        });
+    this.sharedService.get('/Clothes/getClothesInfo', {
+      animation: false
+    }).subscribe(res => {
+      this.clothList = res.data;
+    });
   }
 
   toggle() {

@@ -35,7 +35,6 @@ export class StationInputComponent implements OnInit {
   count: number;
   staffList: Array<any>;
   hasData: boolean;
-  updateUrl = `http://119.29.144.125:8080/cgfeesys/User/setUserDetail`;
   cols: Array<any>;
   selectedUser = '';
   isAdd: boolean;

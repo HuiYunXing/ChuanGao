@@ -36,7 +36,6 @@ export class TrainExecuteComponent implements OnInit {
   planFilePath: string;
   staffList: Array<any>;
   hasData: boolean;
-  updateUrl = `http://119.29.144.125:8080/cgfeesys/User/setUserDetail`;
   cols: Array<any>;
   userList: Array<any>;
   selectedUser = '';
