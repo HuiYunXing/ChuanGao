@@ -51,11 +51,15 @@
           <thead>
             <tr>
               <th *ngFor="let field of cols">{{field.header}}</th>
+              <th>请假条下载</th>
+              <th>请假审核状态</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let item of leaveDataList">
               <td *ngFor="let field of cols">{{item[field.field]}}</td>
+              <td><a *ngIf="item.picUrl" target='_blank' [href]="item.picUrl">下载</a></td>
+              <td>{{item.checkResultCN}}</td>
             </tr>
           </tbody>
         </table>

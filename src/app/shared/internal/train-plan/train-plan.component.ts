@@ -1,9 +1,8 @@
-import { Component, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import 'rxjs/add/operator/map';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { ConfirmComponent } from '../../confirm/confirm.component';
 import { SharedService } from '../../../service/shared-service.service';
 
 @Component({
@@ -185,7 +184,7 @@ export class TrainPlanComponent implements OnInit {
   dateFormat(date) {
     if (date) {
       const _date = new Date(date);
-      const _month = (_date.getMonth() + 1) <= 9 ? `0${(_date.getMonth() + 1)}` : _date.getMonth();
+      const _month = (_date.getMonth() + 1) <= 9 ? `0${(_date.getMonth() + 1)}` : _date.getMonth() + 1;
       const _day = _date.getDate() <= 9 ? `0${_date.getDate()}` : _date.getDate();
       return `${_date.getFullYear()}-${_month}-${_day}`;
     } else {

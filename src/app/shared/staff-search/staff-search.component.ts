@@ -59,7 +59,7 @@ export class StaffSearchComponent implements OnInit {
       specialSkill: new FormControl('', Validators.nullValidator)
     });
     this.cols = [
-      { field: 'userName', header: '姓名', sortable: true, sortItem: 'userName'},
+      { field: 'userName', header: '职工姓名', sortable: true, sortItem: 'userName'},
       { field: 'userSex', header: '性别', sortable: true, sortItem: 'userSex'},
       { field: 'politicalStatus', header: '政治面貌', sortable: true, sortItem: 'politicalStatus'},
       { field: 'userTel', header: '手机号码', sortable: true, sortItem: 'userTel'},

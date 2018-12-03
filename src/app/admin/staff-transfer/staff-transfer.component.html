@@ -30,11 +30,11 @@
     <div>
       <p *ngIf="test(1)">调动时间</p>
       <p *ngIf="test(0)">开始时间</p>
-      <p-calendar [(ngModel)]="startTime" [locale]="en" [showIcon]="true" dateFormat="yy-mm-dd" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030"></p-calendar>
+      <p-calendar class="custom-calendar" [(ngModel)]="startTime" [locale]="en" [showIcon]="true" dateFormat="yy-mm-dd" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030"></p-calendar>
     </div>
     <div *ngIf="test(0)">
       <p>结束时间</p>
-      <p-calendar [(ngModel)]="endTime" [locale]="en" [showIcon]="true" dateFormat="yy-mm-dd" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030"></p-calendar>
+      <p-calendar class="custom-calendar" [(ngModel)]="endTime" [locale]="en" [showIcon]="true" dateFormat="yy-mm-dd" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030"></p-calendar>
     </div>
     <div class="clearfix button-group">
       <button (click)="staffSubmit()" class="button-submit">确定</button>

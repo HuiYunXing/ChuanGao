@@ -61,9 +61,7 @@ export class LeaveEditComponent implements OnInit {
       { field: 'applyTypeCN', header: '请假类型' },
       { field: 'applyDate', header: '开始请假时间' },
       { field: 'applyDateEnd', header: '结束请假时间' },
-      { field: 'remark', header: '请假理由' },
-      { field: 'leaveTipDownload', header: '请假条下载' },
-      { field: 'checkResultCN', header: '请假审核状态' }
+      { field: 'remark', header: '请假理由' }
     ];
     this.initForm = this.form.value;
   }
@@ -75,6 +73,11 @@ export class LeaveEditComponent implements OnInit {
 
   submit() {
     this.addStaffLeave();
+  }
+
+  paginate($event) {
+    this.page = $event.page;
+    this.getInfo(this.page, this.size);
   }
 
   dateFormat(date) {
@@ -100,15 +103,37 @@ export class LeaveEditComponent implements OnInit {
       {
         httpOptions: true,
         successAlert: false,
-        animation: true
+        animation: true,
+        lock: true
       }
     ).subscribe(
       res => {
-        if (this.file) {
-          this.upload(res.data.id);
+        if (res.code) {
+          if (this.file) {
+            this.upload(res.data.id);
+          } else {
+            this.sharedService.addAlert('通知', res.message);
+            this.file = null;
+            this.filename = '';
+            this.toFirstPage();
+          }
+          this.applyDate = '';
+          this.applyDateEnd = '';
+          this.form.setValue(this.initForm);
+        } else {
+          this.sharedService.addAlert('通知', res.message);
         }
       }
     )
+  }
+
+  toFirstPage() {
+    const element = document.getElementsByClassName('ui-paginator-page')[0] as HTMLElement;
+    if (element) {
+      element.click();
+    }else {
+      this.getInfo(0, this.size);
+    }
   }
 
   upload(id) {
@@ -120,13 +145,16 @@ export class LeaveEditComponent implements OnInit {
       formdata,
       {
         httpOptions: false,
-        successAlert: true,
+        successAlert: false,
         animation: true
       }
     ).subscribe(
-      () => {
-        this.file = null;
-        this.filename = '';
+      (res) => {
+        if (res.code) {
+          this.sharedService.addAlert('通知', '请假申请已提交，请假条上传失败！');
+          this.file = null;
+          this.filename = '';
+        }
       }
     )
   }

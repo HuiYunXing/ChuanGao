@@ -18,6 +18,8 @@ export class LeaveSearchComponent implements OnInit {
   leaveDataList: Array<any>;
   orgList: Array<any>;
   order: number;
+  page = 0;
+  size = 15;
   param: any = {
     page: 0,
     size: 15
@@ -126,7 +128,7 @@ export class LeaveSearchComponent implements OnInit {
   }
 
   paginate(event) {
-    this.param.page = event.page;
+    this.page = event.page;
     this.getInfo();
   }
 
@@ -134,6 +136,10 @@ export class LeaveSearchComponent implements OnInit {
     this.form.value.applyDate = this.dateFormat(this.applyDate);
     this.form.value.applyDateEnd = this.dateFormat(this.applyDateEnd);
     this.form.value.orgList = this.orgList.map(el => el.data);
+    this.param = {
+      page: this.page,
+      size: this.size
+    }
     const keys = Object.keys(this.form.value);
     keys.forEach(el => {
       if (this.form.value[el] || this.form.value[el] === 0) {

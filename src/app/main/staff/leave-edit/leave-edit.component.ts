@@ -216,10 +216,21 @@ export class LeaveEditComponent implements OnInit {
       {
         httpOptions: true,
         successAlert: false,
-        animation: true
+        animation: true,
+        lock: true
       }
     ).subscribe(
-      res => this.upload(res.data.id)
+      res => {
+        if (res.code) {
+          if (this.file) {
+            this.upload(res.data.id)
+          } else {
+            this.sharedService.addAlert('通知', res.message);
+            this.isChosen = false;
+            this.toFirstPage();
+          }
+        }
+      }
     );
   }
 
@@ -275,9 +286,12 @@ export class LeaveEditComponent implements OnInit {
         animation: true
       }
     ).subscribe(
-      () => {
-        this.isChosen = false;
-        this.toFirstPage();
+      (res) => {
+        if (res.code) {
+          this.isChosen = false;
+          this.sharedService.addAlert('通知', '请假申请已提交，请假条上传失败！');
+          this.toFirstPage();
+        }
       }
     )
   }

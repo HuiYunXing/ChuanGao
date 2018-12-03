@@ -51,9 +51,6 @@
           <li class="basic-info-item workyear">
             <span>工龄：</span>{{age(data.hireDate)}}年
           </li>
-          <li class="basic-info-item specialSkill">
-            <span>特长：</span>{{data.specialSkill}}
-          </li>
           <li *ngIf="data.listGroup" class="basic-info-item specialSkill">
             <span>班组：</span>{{data.listGroup}}
           </li>
@@ -68,6 +65,9 @@
           </li>
           <li class="basic-info-item specialSkill">
             <span>紧急联系人手机号：</span>{{data.emergencyPhone}}
+          </li>
+          <li class="basic-info-item specialSkill">
+            <span>特长：</span>{{data.specialSkill}}
           </li>
         </ul>
       </div>

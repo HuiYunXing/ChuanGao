@@ -1,4 +1,5 @@
 <div class="tree-container">
+  <div [ngClass]="{'mask': true, 'show': isShow}" (click)="isShow = false"></div>
   <div class="tree-value" (click)="tab()">{{selected}}</div>
   <p-tree class="tree"
     (onNodeSelect)="nodeSelect($event)"

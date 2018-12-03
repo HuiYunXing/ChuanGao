@@ -118,9 +118,8 @@ export class SuperComponent implements OnInit {
   }
 
   delete() {
-    if (this.sharedService.addConfirm('确认通知', '是否确认删除？')) {
-      this.sharedService.get(
-        `/Super/deleteOrg?orgCode=${this.selected.data}&orgType=${this.selected.orgType}`,
+    this.sharedService.addConfirm('确认通知', '是否确认删除？').subscribe(() => {
+      this.sharedService.get(`/Super/deleteOrg?orgCode=${this.selected.data}&orgType=${this.selected.orgType}`,
         {
           successAlert: true,
           animation: true
@@ -131,7 +130,7 @@ export class SuperComponent implements OnInit {
           this.getOrgInfo();
         }
       )
-    }
+    })
   }
 
   addChild(arr, node) {

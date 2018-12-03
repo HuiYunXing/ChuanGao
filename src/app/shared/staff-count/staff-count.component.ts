@@ -148,7 +148,9 @@ export class StaffCountComponent implements OnInit {
         width: '100%',
         height: '100%'
       },
-      tooltip: {},
+      tooltip: {
+        trigger: 'axis'
+      },
       xAxis: {
         data: ['18以下', '18-21', '22-25', '26-29', '30-33', '34-37', '38-41', '42-45', '46-49', '50-53', '54以上'],
         silent: false,
@@ -162,11 +164,21 @@ export class StaffCountComponent implements OnInit {
       series: [{
         name: '男',
         type: 'bar',
-        stack: 'one'
+        stack: 'one',
+        itemStyle: {
+          normal: {
+            color: '#00D286'
+          }
+        }
       }, {
         name: '女',
         type: 'bar',
-        stack: 'one'
+        stack: 'one',
+        itemStyle: {
+          normal: {
+            color: '#D23343'
+          }
+        }
       }]
     };
 

@@ -422,3 +422,8 @@ form{
   }
 }
 
+::ng-deep .custom-calendar {
+  table {
+    background: #fff !important;
+  }
+}

@@ -231,6 +231,10 @@ export class StaffEditComponent implements OnInit {
     return val === this.selectedUser;
   }
 
+  cancel() {
+    this.isChosen = false;
+  }
+
   staffLeave(selectedUser) {
     const leaveDate = this.sharedService.dateFormat(new Date());
     this.sharedService.get(`/StaffMag/staffLeave?userId=${selectedUser}&leaveDate=${leaveDate}`, {
@@ -283,7 +287,8 @@ export class StaffEditComponent implements OnInit {
       this.data.listGroup = +this.form.value.listGroup;
     };
     this.sharedService.post(`/User/setUserDetail`, JSON.stringify(this.data), {
-              httpOptions: true
+              httpOptions: true,
+              successAlert: true
             })
             .subscribe(res => {
                 if (this.file) {
