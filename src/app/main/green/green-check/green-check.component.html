@@ -54,7 +54,7 @@
             <tr *ngFor="let item of carCheckHisDataList">
               <!-- <td><input type="checkbox" (click)="select(item.id)" [checked]="check(item.id)"></td> -->
               <td><a [routerLink]="['../checkDetail']" [queryParams]="{id: item.id}">详情</a></td>
-              <td *ngFor="let field of cols">{{item[field.field]}}</td>
+              <td [attr.title]="item[field.field]" *ngFor="let field of cols">{{item[field.field]}}</td>
             </tr>
           </tbody>
         </table>

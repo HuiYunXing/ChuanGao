@@ -366,7 +366,9 @@ export class SwitchEditComponent implements OnInit {
         successAlert: false,
         animation: true
       }
-    ).subscribe();
+    ).subscribe(res => {
+      this.backStaffList = res.data;
+    });
   }
 
   chooseApplySchedule($event) {

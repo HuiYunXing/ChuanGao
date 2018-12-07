@@ -94,7 +94,7 @@
                 <tr *ngFor="let item of planList">
                   <td><span class="station" [routerLink]="['../executeDetail']" [queryParams]="{id: item.id, type: 1}">落实情况</span></td>
                   <td><span class="content" (click)="select(item)">培训内容</span></td>
-                  <td *ngFor="let field of cols">{{item[field.field]}}</td>
+                  <td [attr.title]="item[field.field]"  *ngFor="let field of cols">{{item[field.field]}}</td>
                 </tr>
               </tbody>
             </table>

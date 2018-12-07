@@ -194,7 +194,7 @@
                 <span *ngIf="item.trainTimeLong !== 0" (click)='getStaffInfo(item["planId"])' class="station">落实</span>
                 <span *ngIf="item.trainTimeLong === 0">已落实</span>
               </td>
-              <td *ngFor="let field of cols">{{item[field.field]}}</td>
+              <td [attr.title]="item[field.field]"  *ngFor="let field of cols">{{item[field.field]}}</td>
             </tr>
           </tbody>
         </table>

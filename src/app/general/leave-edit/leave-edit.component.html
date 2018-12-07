@@ -57,7 +57,7 @@
           </thead>
           <tbody>
             <tr *ngFor="let item of leaveDataList">
-              <td *ngFor="let field of cols">{{item[field.field]}}</td>
+              <td [attr.title]="item[field.field]" *ngFor="let field of cols">{{item[field.field]}}</td>
               <td><a *ngIf="item.picUrl" target='_blank' [href]="item.picUrl">下载</a></td>
               <td>{{item.checkResultCN}}</td>
             </tr>

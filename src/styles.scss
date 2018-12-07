@@ -194,3 +194,9 @@ th{
     border-top: none;
   }
 }
+
+table td {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 400px !important;
+}

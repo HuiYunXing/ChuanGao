@@ -112,7 +112,7 @@
           </thead>
           <tbody>
             <tr *ngFor="let item of staffList">
-              <td *ngFor="let field of cols">{{item[field.field]}}</td>
+              <td [attr.title]="item[field.field]"  *ngFor="let field of cols">{{item[field.field]}}</td>
               <td><img [routerLink]="['../../staffDetail']" [queryParams]="{id: item.userId}" src="/assets/images/table-btn1.png"></td>
               <td><button (click)="resetPwd(item.userId)" class="btn reset-btn">重置</button></td>
               <td>

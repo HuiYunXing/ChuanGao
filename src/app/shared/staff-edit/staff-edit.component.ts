@@ -186,8 +186,12 @@ export class StaffEditComponent implements OnInit {
   }
 
   fileChange($event) {
-    this.filename = $event.target.files[0].name;
-    this.file = $event.target.files[0];
+    if (/.+\.(jpg|png|jpeg)$/.test($event.target.files[0].name)) {
+      this.filename = $event.target.files[0].name;
+      this.file = $event.target.files[0];
+    } else {
+      this.sharedService.addAlert('通知', '文件格式错误！');
+    }
   }
 
   add() {

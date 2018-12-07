@@ -39,7 +39,7 @@
           </thead>
           <tbody>
             <tr *ngFor="let item of holdList">
-              <td *ngFor="let field of cols">{{item[field.field]}}</td>
+              <td [attr.title]="item[field.field]" *ngFor="let field of cols">{{item[field.field]}}</td>
             </tr>
           </tbody>
         </table>

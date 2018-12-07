@@ -64,7 +64,7 @@
               <tbody>
                 <tr *ngFor="let item of planList">
                   <td><input type="checkbox" (click)="select(item.filePath)" [checked]="checked(item.filePath)"></td>
-                  <td *ngFor="let field of cols">{{item[field.field]}}</td>
+                  <td [attr.title]="item[field.field]"  *ngFor="let field of cols">{{item[field.field]}}</td>
                 </tr>
               </tbody>
             </table>

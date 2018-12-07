@@ -62,33 +62,33 @@
       <p>纬度<span class="form-required">*</span></p>
       <input type="text" formControlName="latitude">
     </div>
-    <!-- <div class="form-item">
+    <div class="form-item">
       <p>所属路线<span class="form-required">*</span></p>
       <input type="text" formControlName="longitude">
-    </div> -->
+    </div>
     <div class="form-item">
       <p>经度<span class="form-required">*</span></p>
       <input type="text" formControlName="longitude">
     </div>
-    <!-- <div class="form-item">
+    <div class="form-item">
       <p>省界站标志<span class="form-required">*</span></p>
       <select formControlName="stationType">
         <option value="">请选择</option>
         <option value="非省界站">非省界站</option>
         <option value="省界站">省界站</option>
       </select>
-    </div> -->
+    </div>
     <div class="form-item">
       <p>收费站人数（个）<span class="form-required">*</span></p>
       <input type="text" formControlName="staffNumber">
     </div>
   </div>
   <div class="flex-container">
-    <!-- <div class="form-checkbox">
+    <div class="form-checkbox">
       <p>启用状态：</p>
       <label><div [class.checked]="test(0)"></div><input (click)="check($event)" [checked]="test(0)" value="0" type="checkbox"><span>启用</span></label>
       <label><div [class.checked]="test(1)"></div><input (click)="check($event)" [checked]="test(1)" value="1" type="checkbox"><span>不启用</span></label>
-    </div> -->
+    </div>
     <div class="form-item">
       <button (click)="submit()" class="form-btn">保存</button>
     </div>

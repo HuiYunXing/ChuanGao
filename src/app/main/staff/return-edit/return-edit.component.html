@@ -47,7 +47,7 @@
           <tbody>
             <tr *ngFor="let item of shiftChangeDataList">
               <td><input type="checkbox" (click)="select(item.id)" [checked]="check(item.id)"></td>
-              <td *ngFor="let field of cols">{{item[field.field]}}</td>
+              <td [attr.title]="item[field.field]"  *ngFor="let field of cols">{{item[field.field]}}</td>
               <td>
                 <div *ngIf="item.returnCheck === 0 && !item.overDeadline && item.returnStatus && item.checkResult === 1">
                   <button (click)="changeReturnStatus(item.id, 1)" class="btn btn-success">通过</button>

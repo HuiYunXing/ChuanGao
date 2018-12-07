@@ -129,8 +129,12 @@ export class LeaveEditComponent implements OnInit {
   }
 
   fileChange($event) {
-    this.filename = $event.target.files[0].name;
-    this.file = $event.target.files[0];
+    if (/.+\.(jpg|png|jpeg)$/.test($event.target.files[0].name)) {
+      this.filename = $event.target.files[0].name;
+      this.file = $event.target.files[0];
+    } else {
+      this.sharedService.addAlert('通知', '文件格式错误！');
+    }
   }
 
 
@@ -154,12 +158,12 @@ export class LeaveEditComponent implements OnInit {
   }
 
   search() {
-    if (this.searchName && this.searchName.trim()) {
+    // if (this.searchName && this.searchName.trim()) {
       this.param.userName = this.searchName;
       this.toFirstPage();
-    }else {
-      this.sharedService.addAlert('警告', '请输入要查询的人员姓名！');
-    }
+    // }else {
+    //   this.sharedService.addAlert('警告', '请输入要查询的人员姓名！');
+    // }
   }
 
   update() {
@@ -174,7 +178,9 @@ export class LeaveEditComponent implements OnInit {
 
   delete() {
     if (this.selectedLeave) {
-      this.deleteLeave(this.selectedLeave);
+      this.sharedService.addConfirm('警告', '确认删除此条记录').subscribe(() => {
+        this.deleteLeave(this.selectedLeave);
+      })
     }else {
       this.sharedService.addAlert('警告', '请选择一个人员');
     }

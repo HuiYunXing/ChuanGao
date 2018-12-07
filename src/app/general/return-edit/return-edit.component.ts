@@ -111,7 +111,7 @@ export class ReturnEditComponent implements OnInit {
     if (this.selectedSwitch) {
       this._select = this.shiftChangeDataList.filter(el => el.id === this.selectedSwitch)[0];
       if (this._select.returnStatus === 1) {
-      this.sharedService.addAlert('通知','此记录已还班');
+        this.sharedService.addAlert('通知','此记录已还班');
       }else if (this._select.returnStatus === 2) {
         this.sharedService.addAlert('通知','此记录已超过可修改期限！');
       }else {

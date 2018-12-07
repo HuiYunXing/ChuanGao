@@ -108,7 +108,7 @@ export class HoldEditComponent implements OnInit {
           this.hasData = true;
           res.data.shiftChangeDataList.forEach(el => {
             el.checkResultCN = this.checkResult[el.checkResult];
-            el.applyTeamsCN = this.list_group[el.applyTeams];
+             el.applyTeamsCN = this.list_group[el.applyTeams];
           });
           this.holdList = res.data.shiftChangeDataList;
         }
