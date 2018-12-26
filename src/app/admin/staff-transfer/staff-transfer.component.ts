@@ -48,6 +48,7 @@ export class StaffTransferComponent implements OnInit {
   orgList: any = [];
   newOrg: any;
   staffSelected = [];
+  orgNameOnly = [];
 
   constructor(
     private store: Store<any>,
@@ -70,15 +71,15 @@ export class StaffTransferComponent implements OnInit {
     this.login = store.select('login');
     this.cols = [
       { field: 'orgName', header: '组织名称' },
-      { field: '', header: '临时组织名称' },
+      { field: 'tempOrgName', header: '临时组织名称' },
       { field: 'userName', header: '姓名' },
       { field: 'userSex', header: '性别' },
       { field: 'userTel', header: '手机号码' },
       { field: 'userMail', header: '邮箱' },
       { field: 'politicalStatus', header: '政治面貌' },
-      { field: '', header: '职称' },
+      { field: 'positionalTitle', header: '职称' },
       { field: 'workPost', header: '岗位' },
-      { field: '', header: '入职时间' },
+      { field: 'hireDate', header: '入职时间' },
       { field: 'educational', header: '学历' },
       { field: 'listGroup', header: '班组' },
     ];
@@ -110,6 +111,7 @@ export class StaffTransferComponent implements OnInit {
   add() {
     if (this.staffSelected.length > 0) {
       this.isChosen = true;
+      this.orgNameOnly = Array.from(new Set(this.orgNameOnly));
     }else {
       this.sharedService.addAlert('警告','请选择员工！');
     }
@@ -128,6 +130,7 @@ export class StaffTransferComponent implements OnInit {
       this.staffSelected.splice(index, 1);
     }else {
       this.staffSelected.push(item);
+      this.orgNameOnly.push(item.orgName);
     }
   }
 
@@ -169,10 +172,10 @@ export class StaffTransferComponent implements OnInit {
         userId: el.userId,
         oldOrgCode: el.orgCode,
         newOrgCode: this.newOrg[0].data,
-        temporary: this.checkItem === 0,
+        temporary: this.checkItem == 0,
         startTime: this.dateFormat(this.startTime)
       };
-      if (this.checkItem === 0) {
+      if (this.checkItem == 0) {
         obj.endTime = this.dateFormat(this.endTime);
       }
       arr.push(obj);
@@ -188,6 +191,7 @@ export class StaffTransferComponent implements OnInit {
     ).subscribe(
       res => this.toFirstPage()
     );
+    this.orgNameOnly = [];
   }
 
   getStaff() {
@@ -207,6 +211,7 @@ export class StaffTransferComponent implements OnInit {
         this.hasData = true;
       }
     );
+    
   }
 
   getOrgInfo(orgCode) {
