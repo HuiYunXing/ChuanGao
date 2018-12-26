@@ -212,7 +212,7 @@ export class StaffCountComponent implements OnInit {
       },
       yAxis: {
         name: '年',
-        data: ['', '', '', '4年', '', '', '', '8年', '', '', '', '12年', '', '', '', '16年']
+        data: Array.from(new Array(30), (el, index) => index + '年')
       },
       xAxis: {
         name: '人数',

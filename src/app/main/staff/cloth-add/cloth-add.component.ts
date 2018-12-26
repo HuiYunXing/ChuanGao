@@ -153,7 +153,7 @@ export class ClothAddComponent implements OnInit {
   dateFormat(date) {
     if (date) {
       const _date = new Date(date);
-      const _month = (_date.getMonth() + 1) <= 9 ? `0${(_date.getMonth() + 1)}` : _date.getMonth();
+      const _month = (_date.getMonth() + 1) <= 9 ? `0${(_date.getMonth() + 1)}` : _date.getMonth() + 1;
       const _day = _date.getDate() <= 9 ? `0${_date.getDate()}` : _date.getDate();
       return `${_date.getFullYear()}-${_month}-${_day}`;
     }else {

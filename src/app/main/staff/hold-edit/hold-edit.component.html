@@ -86,12 +86,13 @@
               <td><input type="checkbox" (click)="select(item.id)" [checked]="check(item.id)"></td>
               <td [attr.title]="item[field.field]"  *ngFor="let field of cols">{{item[field.field]}}</td>
               <td>
-                <div *ngIf="item.checkResult === 0">
+                <div *ngIf="item.checkResult === 0 && !item.overDeadline">
                   <button (click)="changeCheckStatus(item.id, 1)" class="btn btn-success">通过</button>
                   <button (click)="changeCheckStatus(item.id, 2)" class="btn btn-danger">不通过</button>
                 </div>
                 <span *ngIf="item.checkResult === 1">通过</span>
                 <span *ngIf="item.checkResult === 2">未通过</span>
+                <span *ngIf="item.checkResult === 0 && item.overDeadline">已超时</span>
               </td>
             </tr>
           </tbody>

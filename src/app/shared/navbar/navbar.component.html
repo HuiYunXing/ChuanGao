@@ -24,19 +24,17 @@
         </div>
       </div>
     </li>
-    <!-- <li class="navbar-item">
-      <i class="fa fa-star-o"></i>
-      <span>0</span>
-    </li> -->
     <li *ngIf="2 === isAdmin" class="navbar-item user-item" style="cursor: auto;">
       <p>{{role}}</p>
     </li>
     <li *ngIf="2 !== isAdmin" class="navbar-item user-item" (click)="showUserManager()">
-      <p>{{role}}</p>
-      <div *ngIf="isShowManager" class="manager-list" (click)="linkDetail('editPassword')">
-          <div class="manager-item">
-            <div class="log"></div><div class="title">修改密码</div>
-          </div>
+      <a *ngIf="2 === orgType && isAdmin" [routerLink]="['/admin/staffDetail']" [queryParams]="{id: userId}">{{role}}</a>
+      <a *ngIf="3 === orgType && isAdmin" [routerLink]="['/main/staffDetail']" [queryParams]="{id: userId}">{{role}}</a>
+      <a *ngIf="3 === orgType && !isAdmin" [routerLink]="['/general/person-detail']" [queryParams]="{id: userId}">{{role}}</a>
+      <div class="manager-list" (click)="linkDetail('editPassword')">
+        <div class="manager-item">
+          <div class="log"></div><div class="title">修改密码</div>
+        </div>
       </div>
     </li>
     <li class="navbar-item logout-item">

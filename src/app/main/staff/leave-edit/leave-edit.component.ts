@@ -48,9 +48,9 @@ export class LeaveEditComponent implements OnInit {
     private sharedService: SharedService
   ) {
     this.form = new FormGroup({
-      applyUserId: new FormControl('', Validators.nullValidator),
-      applyType: new FormControl('', Validators.nullValidator),
-      remark: new FormControl('', Validators.nullValidator)
+      applyUserId: new FormControl('', Validators.required),
+      applyType: new FormControl('', Validators.required),
+      remark: new FormControl('', Validators.required)
     });
     this.keys = Object.keys(this.form.value);
     this.en = {
@@ -141,7 +141,7 @@ export class LeaveEditComponent implements OnInit {
   dateFormat(date) {
     if (date) {
       const _date = new Date(date);
-      const _month = (_date.getMonth() + 1) <= 9 ? `0${(_date.getMonth() + 1)}` : _date.getMonth();
+      const _month = (_date.getMonth() + 1) <= 9 ? `0${(_date.getMonth() + 1)}` : _date.getMonth() + 1;
       const _day = _date.getDate() <= 9 ? `0${_date.getDate()}` : _date.getDate();
       return `${_date.getFullYear()}-${_month}-${_day}`;
     }else {
@@ -216,28 +216,40 @@ export class LeaveEditComponent implements OnInit {
     this.form.value.applyDateEnd = this.dateFormat(this.applyDateEnd);
     this.form.value.stationCode = this.orgCode;
     this.form.value.adminId = this.adminId;
-    this.sharedService.post(
-      '/Leave/staffLeaveByAdmin',
-      JSON.stringify(this.form.value),
-      {
-        httpOptions: true,
-        successAlert: false,
-        animation: true,
-        lock: true
-      }
-    ).subscribe(
-      res => {
-        if (res.code) {
-          if (this.file) {
-            this.upload(res.data.id)
-          } else {
-            this.sharedService.addAlert('通知', res.message);
-            this.isChosen = false;
-            this.toFirstPage();
+    if (!this.form.value.applyUserId) {
+      this.sharedService.addAlert('警告', '请假人不能为空！');
+    } else if (!this.form.value.applyDate) {
+      this.sharedService.addAlert('警告', '开始日期不能为空！');
+    } else if (!this.form.value.applyDateEnd) {
+      this.sharedService.addAlert('警告', '结束日期不能为空！');
+    } else if (!this.form.value.applyType) {
+      this.sharedService.addAlert('警告', '请假类型不能为空！');
+    } else if (!this.form.value.remark) {
+      this.sharedService.addAlert('警告', '请假理由不能为空！');
+    } else {
+      this.sharedService.post(
+        '/Leave/staffLeaveByAdmin',
+        JSON.stringify(this.form.value),
+        {
+          httpOptions: true,
+          successAlert: false,
+          animation: true,
+          lock: true
+        }
+      ).subscribe(
+        res => {
+          if (res.code) {
+            if (this.file) {
+              this.upload(res.data.id)
+            } else {
+              this.sharedService.addAlert('通知', res.message);
+              this.isChosen = false;
+              this.toFirstPage();
+            }
           }
         }
-      }
-    );
+      );
+    }
   }
 
   updateLeave() {
@@ -294,10 +306,12 @@ export class LeaveEditComponent implements OnInit {
     ).subscribe(
       (res) => {
         if (res.code) {
-          this.isChosen = false;
+          this.sharedService.addAlert('通知', '请假成功！');
+        }else {
           this.sharedService.addAlert('通知', '请假申请已提交，请假条上传失败！');
-          this.toFirstPage();
         }
+        this.isChosen = false;
+        this.toFirstPage();
       }
     )
   }

@@ -93,7 +93,7 @@ export class StaffSearchComponent implements OnInit {
   dateFormat(date) {
     if (date) {
       const _date = new Date(date);
-      const _month = (_date.getMonth() + 1) <= 9 ? `0${(_date.getMonth() + 1)}` : _date.getMonth();
+      const _month = (_date.getMonth() + 1) <= 9 ? `0${(_date.getMonth() + 1)}` : _date.getMonth() + 1;
       const _day = _date.getDate() <= 9 ? `0${_date.getDate()}` : _date.getDate();
       return `${_date.getFullYear()}-${_month}-${_day}`;
     }else {
@@ -103,6 +103,9 @@ export class StaffSearchComponent implements OnInit {
 
   selectedOrg($event) {
     this.orgList = $event;
+    if (!this.count) {
+      this.getInfo();
+    }
   }
 
   submit() {
@@ -179,12 +182,14 @@ export class StaffSearchComponent implements OnInit {
   }
 
   resetPwd(id) {
-    this.sharedService.get(`/resetPassword?userId=${id}`, {
-      animation: true
+    this.sharedService.addConfirm('警告', '确认重置此账号密码？').subscribe(() => {
+      this.sharedService.get(`/resetPassword?userId=${id}`, {
+        animation: true
+      })
+      .subscribe(res => {
+        this.sharedService.addAlert('通知', '重置成功');
+      });
     })
-        .subscribe(res => {
-            this.sharedService.addAlert('警告', '重置成功');
-        });
   }
 
   ngOnInit() {
@@ -192,11 +197,11 @@ export class StaffSearchComponent implements OnInit {
       if (res) {
         this.initOrgName = res.orgName;
         this.orgType = res.orgType;
-        this.orgList = [{
-          data: res.orgCode,
-          orgType: res.orgType
-        }];
-        this.getInfo();
+        // this.orgList = [{
+        //   data: res.orgCode,
+        //   orgType: res.orgType
+        // }];
+        // this.getInfo();
       }
     }).unsubscribe();
   }

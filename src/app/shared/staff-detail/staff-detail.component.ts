@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import 'rxjs/add/operator/map';
-import { work_post, politicalStatus, positionalTitle } from '../../store/translate';
+import { work_post, politicalStatus, positionalTitle, list_group } from '../../store/translate';
 import { SharedService } from '../../service/shared-service.service';
 
 @Component({
@@ -17,6 +17,7 @@ export class StaffDetailComponent implements OnInit {
   now_date = new Date();
   politicalStatus = politicalStatus;
   positionalTitle = positionalTitle;
+  listGroup = list_group;
 
   constructor(
     private route: ActivatedRoute,

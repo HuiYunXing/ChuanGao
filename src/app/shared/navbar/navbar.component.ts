@@ -20,6 +20,7 @@ export class NavbarComponent implements OnInit {
   isShowManager: boolean = false;
   orgType;
   isAdmin;
+  userId: string;
 
   logout(): void {
     window.sessionStorage.setItem('login', '');
@@ -94,6 +95,7 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
     this.login.subscribe(res => {
       if (res) {
+        this.userId = res.userId;
         let orgTypeDes;
         this.isAdmin = res.isAdmin;
         if(2 === this.isAdmin){

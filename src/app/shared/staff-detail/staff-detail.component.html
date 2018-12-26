@@ -52,7 +52,7 @@
             <span>工龄：</span>{{age(data.hireDate)}}年
           </li>
           <li *ngIf="data.listGroup" class="basic-info-item specialSkill">
-            <span>班组：</span>{{data.listGroup}}
+            <span>班组：</span>{{listGroup[data.listGroup]}}
           </li>
           <li class="basic-info-item specialSkill">
             <span>政治面貌：</span>{{politicalStatus[data.politicalStatus]}}
@@ -98,13 +98,17 @@
     <div>
       <h1 class="part-title">获奖情况</h1>
       <div class="part-content2 list-str">
-        <p>{{data.awardDetail}}</p>
+        <div *ngIf="data.awardDetail">
+          <p *ngFor="let row of data.awardDetail.split(';')">{{row}}</p>
+        </div>
       </div>
     </div>
     <div>
       <h1 class="part-title">工作履历</h1>
       <div class="part-content2 list-str">
-        <p>{{data.jobDetail}}</p>
+        <div *ngIf="data.jobDetail">
+          <p *ngFor="let row of data.jobDetail.split(';')">{{row}}</p>
+        </div>
       </div>
     </div>
   </div>

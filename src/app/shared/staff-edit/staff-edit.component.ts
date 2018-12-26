@@ -322,9 +322,14 @@ export class StaffEditComponent implements OnInit {
     formdata.append('userId', userId);
     this.sharedService.post(`/upload/userInfo`, formdata, {
       httpOptions: false,
-      successAlert: true
+      successAlert: false
     })
       .subscribe(res => {
+        if (res.code) {
+          this.sharedService.addAlert('通知', '编辑成功！');
+        } else {
+          this.sharedService.addAlert('通知', '编辑成功，图片保存失败，请重新上传！');
+        }
         this.file = null;
         this.filename = '';
         this.toFirstPage();

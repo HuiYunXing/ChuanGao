@@ -4,22 +4,22 @@
   <div class="part-content">
     <form [formGroup]="form">
       <div class="form-item">
-        <p>请假人</p>
+        <p>请假人<span class="required-symbol">*</span></p>
         <select formControlName="applyUserId">
           <option value="">请选择</option>
           <option *ngFor="let user of staffList" [value]="user.userId">{{user.userName}}</option>
         </select>
       </div>
       <div class="form-item">
-        <p>开始日期</p>
+        <p>开始日期<span class="required-symbol">*</span></p>
         <p-calendar [(ngModel)]="applyDate" [locale]="en" [showIcon]="true" [ngModelOptions]="{standalone: true}" dateFormat="yy-mm-dd" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030"></p-calendar>
       </div>
       <div class="form-item">
-        <p>结束日期</p>
+        <p>结束日期<span class="required-symbol">*</span></p>
         <p-calendar [(ngModel)]="applyDateEnd" [locale]="en" [showIcon]="true" [ngModelOptions]="{standalone: true}" dateFormat="yy-mm-dd" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030"></p-calendar>
       </div>
       <div class="form-item">
-        <p>请假类型</p>
+        <p>请假类型<span class="required-symbol">*</span></p>
         <select formControlName="applyType">
           <option value="-1">请选择</option>
           <option value="1">事假</option>
@@ -40,7 +40,7 @@
         </div>
       </div>
       <div class="form-item form-textarea">
-        <p>请假理由</p>
+        <p>请假理由<span class="required-symbol">*</span></p>
         <textarea type="text" formControlName="remark"></textarea>
       </div>
     </form>
@@ -88,7 +88,7 @@
                 </div>
                 <span *ngIf="item.checkResult === 1">通过</span>
                 <span *ngIf="item.checkResult === 2">未通过</span>
-                <span  *ngIf="item.checkResult === 0 && item.overDeadline">已超时</span>
+                <span *ngIf="item.checkResult === 0 && item.overDeadline">已超时</span>
               </td>
             </tr>
           </tbody>

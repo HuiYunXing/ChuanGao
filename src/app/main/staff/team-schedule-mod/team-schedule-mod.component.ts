@@ -58,7 +58,7 @@ export class TeamScheduleModComponent implements OnInit {
   dateFormat(date) {
     if (date) {
       const _date = new Date(date);
-      const _month = (_date.getMonth() + 1) <= 9 ? `0${(_date.getMonth() + 1)}` : _date.getMonth();
+      const _month = (_date.getMonth() + 1) <= 9 ? `0${(_date.getMonth() + 1)}` : _date.getMonth() + 1;
       const _day = _date.getDate() <= 9 ? `0${_date.getDate()}` : _date.getDate();
       return `${_date.getFullYear()}-${_month}-${_day}`;
     }else {
@@ -98,26 +98,30 @@ export class TeamScheduleModComponent implements OnInit {
       });
       const valid = this.modDetail.filter(el => el.teamsGroup === -1).length === 0;
       if (valid) {
-        this.sharedService.post(
-          '/Schedule/setScheduleMould',
-          JSON.stringify({
-            stationCode: this.orgCode,
-            scheduleTypeDesc: this.form.value.scheduleTypeDesc,
-            scheduleDays: this.form.value.scheduleDays,
-            mouldLists: this.modDetail
-          }),
-          {
-            httpOptions: true,
-            successAlert: true,
-            animation: true
+        if (this.form.value.scheduleTypeDesc) {
+          this.sharedService.post(
+            '/Schedule/setScheduleMould',
+            JSON.stringify({
+              stationCode: this.orgCode,
+              scheduleTypeDesc: this.form.value.scheduleTypeDesc,
+              scheduleDays: this.form.value.scheduleDays,
+              mouldLists: this.modDetail
+            }),
+            {
+              httpOptions: true,
+              successAlert: true,
+              animation: true
+            }
+            ).subscribe(
+              () => {
+                this.getInfo();
+                this.addMod = false,
+                this.modDetail = [];
+              }
+            );
+          } else {
+            this.sharedService.addAlert('警告', '请填写模板描述！');
           }
-        ).subscribe(
-          () => {
-            this.getInfo();
-            this.addMod = false,
-            this.modDetail = [];
-          }
-        );
       }else {
         this.sharedService.addAlert('警告', '请在所有班次选择班组！');
       }
@@ -149,15 +153,17 @@ export class TeamScheduleModComponent implements OnInit {
 
   deleteMod() {
     if (this.checkItem) {
-      this.sharedService.get(
-        `/Schedule/deleteScheduleMould?scheduleType=${this.checkItem}`,
-        {
-          successAlert: false,
-          animation: true
-        }
-      ).subscribe(
-        () => this.getInfo()
-      );
+      this.sharedService.addConfirm('提示', '确认删除此模板？').subscribe(() => {
+        this.sharedService.get(
+          `/Schedule/deleteScheduleMould?scheduleType=${this.checkItem}`,
+          {
+            successAlert: false,
+            animation: true
+          }
+        ).subscribe(
+          () => this.getInfo()
+        );
+      })
     }else {
       this.sharedService.addAlert('警告', '请选择一个模板！');
     }
@@ -165,7 +171,6 @@ export class TeamScheduleModComponent implements OnInit {
 
   chooseMod(id) {
     this.checkItem = this.checkItem === id ? '' : id;
-    console.log(this.checkItem);
   }
 
   ngOnInit() {

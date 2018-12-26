@@ -44,8 +44,8 @@ export class LeaveEditComponent implements OnInit {
   ) {
     this.login = store.select('login');
     this.form = new FormGroup({
-      applyType: new FormControl('', Validators.nullValidator),
-      remark: new FormControl('', Validators.nullValidator)
+      applyType: new FormControl('', Validators.required),
+      remark: new FormControl('', Validators.required)
     });
     this.en = {
       firstDayOfWeek: 0,
@@ -87,7 +87,7 @@ export class LeaveEditComponent implements OnInit {
   dateFormat(date) {
     if (date) {
       const _date = new Date(date);
-      const _month = (_date.getMonth() + 1) <= 9 ? `0${(_date.getMonth() + 1)}` : _date.getMonth();
+      const _month = (_date.getMonth() + 1) <= 9 ? `0${(_date.getMonth() + 1)}` : _date.getMonth() + 1;
       const _day = _date.getDate() <= 9 ? `0${_date.getDate()}` : _date.getDate();
       return `${_date.getFullYear()}-${_month}-${_day}`;
     }else {
@@ -101,35 +101,45 @@ export class LeaveEditComponent implements OnInit {
     this.form.value.stationCode = this.orgCode;
     this.form.value.applyUserId = this.applyUserId;
     this.form.value.applyType = +this.form.value.applyType;
-    this.sharedService.post(
-      '/Leave/staffLeave',
-      JSON.stringify(this.form.value),
-      {
-        httpOptions: true,
-        successAlert: false,
-        animation: true,
-        lock: true
-      }
-    ).subscribe(
-      res => {
-        if (res.code) {
-          if (this.file) {
-            this.upload(res.data.id);
+    if (!this.form.value.applyDate) {
+      this.sharedService.addAlert('警告', '开始日期不能为空！');
+    } else if (!this.form.value.applyDateEnd) {
+      this.sharedService.addAlert('警告', '结束日期不能为空！');
+    } else if (!this.form.value.applyType) {
+      this.sharedService.addAlert('警告', '请假类型不能为空！');
+    } else if (!this.form.value.remark) {
+      this.sharedService.addAlert('警告', '请假理由不能为空！');
+    } else {
+      this.sharedService.post(
+        '/Leave/staffLeave',
+        JSON.stringify(this.form.value),
+        {
+          httpOptions: true,
+          successAlert: false,
+          animation: true,
+          lock: true
+        }
+      ).subscribe(
+        res => {
+          if (res.code) {
+            if (this.file) {
+              this.upload(res.data.id);
+            } else {
+              this.sharedService.addAlert('通知', res.message);
+              this.file = null;
+              this.filename = '';
+              this.toFirstPage();
+            }
+            this.applyDate = '';
+            this.applyDateEnd = '';
+            this.form.setValue(this.initForm);
           } else {
             this.sharedService.addAlert('通知', res.message);
-            this.file = null;
-            this.filename = '';
-            this.toFirstPage();
           }
-          this.applyDate = '';
-          this.applyDateEnd = '';
-          this.form.setValue(this.initForm);
-        } else {
-          this.sharedService.addAlert('通知', res.message);
         }
+        )
       }
-    )
-  }
+    }
 
   toFirstPage() {
     const element = document.getElementsByClassName('ui-paginator-page')[0] as HTMLElement;
@@ -155,10 +165,12 @@ export class LeaveEditComponent implements OnInit {
     ).subscribe(
       (res) => {
         if (res.code) {
+          this.sharedService.addAlert('通知', '请假成功！');
+        }else {
           this.sharedService.addAlert('通知', '请假申请已提交，请假条上传失败！');
-          this.file = null;
-          this.filename = '';
         }
+        this.file = null;
+        this.filename = '';
       }
     )
   }

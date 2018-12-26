@@ -22,10 +22,12 @@ export class DropOrgTreeComponent implements OnInit, DoCheck {
       this.hasClicked = false;
     }
   }
-
   get initOrgName() {
     return this.selected;
   }
+
+  @Input()
+  propagateSelectionDown = false;
 
   login: Observable<any>;
   treeNodes: Array<any> = [];

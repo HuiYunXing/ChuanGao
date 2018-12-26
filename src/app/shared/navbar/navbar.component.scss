@@ -106,6 +106,19 @@
         background: url('/assets/images/user.png') no-repeat 0 center;
         cursor: pointer;
 
+        &:hover {
+          .manager-list {
+            display: block;
+          }
+        }
+
+        a {
+          &:hover, &:active, &:visited, &:focus {
+            color: #0275d8;
+            text-decoration: none;
+          }
+        }
+
         .manager-list{
           position: absolute;
           top: 50px;
@@ -116,6 +129,7 @@
           box-shadow: 4px 4px 12px #dadada;
           border-radius: 3px;
           border: 1px solid #f7f7f7;
+          display: none;
 
           .manager-item {
 

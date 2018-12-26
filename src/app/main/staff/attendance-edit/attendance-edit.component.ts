@@ -136,7 +136,7 @@ export class AttendanceEditComponent implements OnInit {
       attendanceStaffList: attendanceStaffList
     };
     if (!param.attenceDate) {
-      this.sharedService.addAlert('警告', '请选择考勤日期！');
+      this.sharedService.addAlert('警告', '请选择出勤日期！');
     }else if (!param.shiftId) {
       this.sharedService.addAlert('警告', '请选择班次！');
     }else {

@@ -231,6 +231,10 @@ export class TeamScheduleSearchComponent implements OnInit {
     this._month = this.nowTime.getMonth() + 1;
     this._year = this.nowTime.getFullYear();
     this.now = this.dateFormat(this.nowTime);
+    const date = new Date(this.now);
+    this.startTime = this.sharedService.dateFormat(new Date(date.setDate(1)));
+    this.endTime = this.sharedService.dateFormat(new Date(date.setMonth(date.getMonth() + 1)).setDate(0));
+    this.getInfo();
     this.calendarInit(this.now);
     this.bindSechedule();
   }
@@ -241,6 +245,10 @@ export class TeamScheduleSearchComponent implements OnInit {
     this._year = this.nowTime.getFullYear();
     this.today = this.dateFormat(this.nowTime);
     this.now = this.dateFormat(this.nowTime.setDate(1));
+    const date = new Date(this.now);
+    this.startTime = this.sharedService.dateFormat(new Date(date.setDate(1)));
+    this.endTime = this.sharedService.dateFormat(new Date(date.setMonth(date.getMonth() + 1)).setDate(0));
+    this.getInfo();
     this.calendarInit(this.now);
     this.bindSechedule();
   }
@@ -259,6 +267,9 @@ export class TeamScheduleSearchComponent implements OnInit {
         this.startTime = this.sharedService.dateFormat(new Date(date.setDate(1)));
         this.endTime = this.sharedService.dateFormat(new Date(date.setMonth(date.getMonth() + 1)).setDate(0));
         this.getInfo();
+        if (this.orgList.length > 0) {
+          this.getStaffs(-1, this.orgList[0].data);
+        }
       }
     }).unsubscribe();
   }
