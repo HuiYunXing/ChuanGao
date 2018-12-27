@@ -3,6 +3,20 @@
   height: 40px;
   position: relative;
 
+  .mask{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: none;
+    z-index: 199;
+
+    &.show {
+      display: block;
+    }
+  }
+
   .loading {
     z-index: 100;
     height: 200px;
@@ -33,7 +47,7 @@
     border: 1px solid #d4d4d4;
     background: #fff;
     line-height: 40px;
-    z-index: 99;
+    z-index: 999;
   }
 
   .ul-header-container{

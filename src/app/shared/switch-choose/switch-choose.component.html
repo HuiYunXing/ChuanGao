@@ -1,4 +1,5 @@
 <div class="switch-choose-container">
+  <div [ngClass]="{'mask': true, 'show': switchTableShow}" (click)="switchTableShow = false"></div>
   <div (click)="toggle()" class="switch-value">{{_username}} {{_date}} {{shiftId[_teamGroup]}}</div>
   <div *ngIf="switchTableShow" class="switch-table-container">
     <ul class="ul-header-container">
