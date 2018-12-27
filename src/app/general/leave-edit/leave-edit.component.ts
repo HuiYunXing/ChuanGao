@@ -35,7 +35,7 @@ export class LeaveEditComponent implements OnInit {
     7: '其他'
   };
   cols: any;
-  checkResult = ['未审核', '通过', '未通过'];
+  checkResult = ['未审核', '通过', '未通过', '已超时'];
   initForm: any;
 
   constructor(
@@ -196,6 +196,9 @@ export class LeaveEditComponent implements OnInit {
         res.data.leaveDataList.forEach(el => {
           el.applyTypeCN = this.leaveType[el.applyType];
           el.checkResultCN = this.checkResult[el.checkResult];
+          if (el.overDeadline) {
+            el.checkResultCN = this.checkResult[3];
+          }
         });
         this.leaveDataList = res.data.leaveDataList;
         if (res.data.count > 0) {
