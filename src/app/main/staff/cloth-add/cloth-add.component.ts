@@ -145,6 +145,9 @@ export class ClothAddComponent implements OnInit {
             el.clothesType = this.clothesTypeList[el.clothesType];
             el.clothesClassification = this.clothesClassificationList[el.clothesClassification];
           });
+        } else {
+          this.hasData = false;
+          this.clothesDataList = null;
         }
       }
     )

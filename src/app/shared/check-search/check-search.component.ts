@@ -107,7 +107,9 @@ export class CheckSearchComponent implements OnInit {
       }
     });
     this.sharedService.post('/Check/getDetail', JSON.stringify(param), {
-      httpOptions: true
+      httpOptions: true,
+      successAlert: false,
+      animation: true
     })
       .subscribe(res => {
         this.count = res.data.count;
