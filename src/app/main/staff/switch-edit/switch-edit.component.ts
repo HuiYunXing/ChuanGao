@@ -212,6 +212,24 @@ export class SwitchEditComponent implements OnInit {
   }
 
   search() {
+    const dataArray = [];
+    if (this.applyDate != null && this.applyDateEnd != null) {
+      if (new Date(this.applyDate) > new Date(this.applyDateEnd)) {
+        alert("开始日期不能大于结束日期");
+        return;
+      }
+      this.shiftChangeDataList.filter(value => {
+        if (
+          new Date(this.applyDate) < new Date(value.createTime) && 
+          new Date(this.applyDateEnd) > new Date(value.createTime)
+          ){
+            dataArray.push(value);
+          }
+      })
+      this.shiftChangeDataList = dataArray;
+    } else {
+      alert("请输入选择查询的日期范围");
+    }
     // if (this.searchName && this.searchName.trim()) {
     //   this.param.userName = this.searchName;
     //   this.toFirstPage();
