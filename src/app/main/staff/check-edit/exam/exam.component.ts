@@ -120,6 +120,10 @@ export class ExamComponent implements OnInit {
   }
 
   delete() {
+    if(this.selectedId == null || this.selectedId == undefined){
+      this.sharedService.addAlert('警告','请选择需要删除的数据！');
+      return;
+    }
     this.sharedService.get(
       `/Check/deleteCheck?id=${this.selectedId}&type=1`,
       {
