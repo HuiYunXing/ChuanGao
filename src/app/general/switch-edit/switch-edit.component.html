@@ -8,10 +8,10 @@
           <p>换班信息</p>
           <app-switch-choose [userName]="userName" (chosenSchedule)="chooseApplySchedule($event)" [userId]="userId" [teams]="listGroup"></app-switch-choose>
         </div>
-        <div *ngIf="applyInfo" class="form-item">
+        <!-- <div *ngIf="applyInfo" class="form-item">
           <p>换班详细信息</p>
           <span>换班日期：{{applyInfo.scheduleDate}}&nbsp;换班班次：{{shiftId[applyInfo.shiftId]}}</span>
-        </div>
+        </div> -->
       </form>
       <div class="form-checkbox">
         <p>请选择调班类型</p>
@@ -45,10 +45,10 @@
           <p>替班信息</p>
           <app-switch-choose [userName]="backUserName" (chosenSchedule)="chooseBackSchedule($event)" [userId]="backUserId" [teams]="backTeams"></app-switch-choose>
         </div>
-        <div *ngIf="backInfo" class="form-item">
+        <!-- <div *ngIf="backInfo" class="form-item">
           <p>替班详细信息</p>
           <span>替班日期：{{backInfo.scheduleDate}}&nbsp;替班班次：{{shiftId[backInfo.shiftId]}}</span>
-        </div>
+        </div> -->
       </form>
       <!-- <form *ngIf="checkItem === 2" [formGroup]="form">
         <div class="form-item">

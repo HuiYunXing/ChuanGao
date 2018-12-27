@@ -41,6 +41,9 @@ export class SwitchChooseComponent implements OnInit, DoCheck {
   _username: string;
   loadingSchedule = false;
 
+  _teamGroup: string;
+  _date: string;
+
   constructor(
     private sharedServie: SharedService,
     private store: Store<any>
@@ -76,7 +79,10 @@ export class SwitchChooseComponent implements OnInit, DoCheck {
   }
 
   chooseSchedule(schedule) {
+    console.log(schedule);
     this._username = schedule.userName;
+    this._teamGroup = schedule.shiftId;
+    this._date = schedule.scheduleDate;
     this.chosenSchedule.emit(schedule);
     this.switchTableShow = false;
   }

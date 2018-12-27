@@ -92,6 +92,7 @@ export class CheckSearchComponent implements OnInit {
     this.getInfo(event.page, this.size);
   }
 
+  // todo 功能缺失
   getInfo(page: number, size: number) {
     this.form.value.startTime = this.dateFormat(this.startTime);
     this.form.value.endTime = this.dateFormat(this.endTime);

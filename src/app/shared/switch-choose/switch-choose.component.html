@@ -1,5 +1,5 @@
 <div class="switch-choose-container">
-  <div (click)="toggle()" class="switch-value">{{_username}}</div>
+  <div (click)="toggle()" class="switch-value">{{_username}} {{_date}} {{shiftId[_teamGroup]}}</div>
   <div *ngIf="switchTableShow" class="switch-table-container">
     <ul class="ul-header-container">
       <li class="li-index"></li>
