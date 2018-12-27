@@ -2,7 +2,7 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.3.
 
-To install and setting this project environment, please enter the root of thie project and rum following command `npm install`.
+To install and setting this project environment, please enter the root of thie project and run following command `npm install`.
 
 ## Development server
 
