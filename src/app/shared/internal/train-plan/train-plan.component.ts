@@ -274,6 +274,7 @@ export class TrainPlanComponent implements OnInit {
 
     if (validatorData.length > 0) {
       this.sharedService.addAlert('警告',`请检查数据项：${validatorData.join(',')}不能为空`)
+      return;
     }
 
     this.form.value.trainPlanOrg = this.orgList[0].data;
