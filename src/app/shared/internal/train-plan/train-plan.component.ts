@@ -278,7 +278,6 @@ export class TrainPlanComponent implements OnInit {
     }
 
     this.form.value.trainPlanOrg = this.orgList[0].data;
-    console.log(this.form);
     this.sharedService.post(`/Train/planAdd`, JSON.stringify(this.form.value), {
               httpOptions: true,
               animation: true,
