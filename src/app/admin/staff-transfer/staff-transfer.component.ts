@@ -3,7 +3,7 @@ import 'rxjs/add/operator/map';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { applyType } from '../../store/translate';
+import { applyType, educational, politics, politicalStatus, positionalTitle, list_group, work_post } from '../../store/translate';
 import { SharedService } from "../../service/shared-service.service";
 
 @Component({
@@ -17,6 +17,12 @@ export class StaffTransferComponent implements OnInit {
   form: FormGroup;
   staffId: string;
   applyType = applyType;
+  educational = educational;
+  politics = politics;
+  politicalStatus = politicalStatus;
+  positionalTitle = positionalTitle;
+  list_group = list_group;
+  work_post = work_post;
   checkItem = 1;
   startTime: string;
   endTime: string;
@@ -208,6 +214,14 @@ export class StaffTransferComponent implements OnInit {
         this.staffSelected = [];
         this.count = res.data.count;
         this.staffList = res.data.staffDataList;
+        console.log(this.staffList);
+        this.staffList.forEach(val => {
+          val.listGroup = list_group[val.listGroup];
+          val.educational = educational[val.educational];
+          val.politicalStatus = politicalStatus[val.politicalStatus];
+          val.positionalTitle = positionalTitle[val.positionalTitle];
+          val.workPost = work_post[val.workPost];
+        });
         this.hasData = true;
       }
     );
