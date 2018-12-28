@@ -19,6 +19,7 @@ export class TrainPlanComponent implements OnInit {
   file: any;
   checkMode = 'checkbox';
   filename: string;
+  fileType: string;
   isChosen = false;
   login: Observable<any> = new Observable<any>();
   count: number;
@@ -41,6 +42,8 @@ export class TrainPlanComponent implements OnInit {
     size: 15,
   };
   trainTimeLong = 0.5;
+
+  allowFileType = ['pdf','doc','docx','jpg'];
 
   constructor(
     private store: Store<any>,
@@ -178,7 +181,16 @@ export class TrainPlanComponent implements OnInit {
 
   fileChange($event) {
     this.filename = $event.target.files[0].name;
+    this.fileType = this.filename.split('.').pop();
+    if (this.allowFileType.findIndex(val => val === this.fileType) < 0){
+      this.sharedService.addAlert('警告','不支持的文件类型');
+      this.filename = '';
+      this.fileType = '';
+      return;
+    }
     this.file = $event.target.files[0];
+    // this.fileType = $event.target.files[0].type;
+
   }
 
   dateFormat(date) {
