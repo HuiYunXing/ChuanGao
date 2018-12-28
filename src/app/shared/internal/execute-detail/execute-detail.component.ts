@@ -22,8 +22,8 @@ export class ExecuteDetailComponent implements OnInit {
     this.id = this.router.snapshot.queryParams['id'];
     this.type = this.router.snapshot.queryParams['type'];
     this.cols = [
-      { field: 'trainName', header: '培训计划名称' },
-      { field: 'trainOrgName', header: '发起单位' },
+      { field: 'trainPlanName', header: '培训计划名称' },
+      { field: 'trainPlanOrgName', header: '发起单位' },
       { field: 'trainStartDate', header: '计划开始时间' },
       { field: 'trainEndDate', header: '计划结束时间' },
       { field: 'trainWay', header: '培训方式' },
