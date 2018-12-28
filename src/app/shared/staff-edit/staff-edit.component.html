@@ -8,11 +8,11 @@
         <input type="text" disabled="true" formControlName="orgName">
       </div>
       <div class="form-item">
-        <p>人员姓名</p>
+        <p>人员姓名<font style="color:red;font-size: 1rem">*</font></p>
         <input type="text" formControlName="userName">
       </div>
       <div class="form-item">
-        <p>性别</p>
+        <p>性别<font style="color:red;font-size: 1rem">*</font></p>
         <select formControlName="userSex">
           <option value="">请选择</option>
           <option value="男">男</option>
@@ -20,15 +20,15 @@
         </select>
       </div>
       <div class="form-item">
-        <p>入职时间</p>
+        <p>入职时间<font style="color:red;font-size: 1rem">*</font></p>
         <p-calendar [(ngModel)]="hireDate" [locale]="en" [showIcon]="true" [ngModelOptions]="{standalone: true}" dateFormat="yy-mm-dd" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030"></p-calendar>
       </div>
       <div class="form-item">
-        <p>出生时间</p>
+        <p>出生时间<font style="color:red;font-size: 1rem">*</font></p>
         <p-calendar [(ngModel)]="birthday" [locale]="en" [showIcon]="true" [ngModelOptions]="{standalone: true}" dateFormat="yy-mm-dd" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030"></p-calendar>
       </div>
       <div class="form-item">
-        <p>学历</p>
+        <p>学历<font style="color:red;font-size: 1rem">*</font></p>
         <select formControlName="educational">
           <option value="">请选择</option>
           <option value="1">研究生</option>
@@ -43,15 +43,15 @@
         <input type="text" formControlName="practitionerCertificate">
       </div>
       <div class="form-item">
-        <p>变更时间</p>
+        <p>变更时间<font style="color:red;font-size: 1rem">*</font></p>
         <p-calendar [(ngModel)]="changeTime" [locale]="en" [showIcon]="true" [ngModelOptions]="{standalone: true}" dateFormat="yy-mm-dd" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030"></p-calendar>
       </div>
       <div class="form-item">
-        <p>手机号</p>
+        <p>手机号<font style="color:red;font-size: 1rem">*</font></p>
         <input type="text" formControlName="userTel">
       </div>
       <div class="form-item">
-        <p>岗位</p>
+        <p>岗位<font style="color:red;font-size: 1rem">*</font></p>
         <select formControlName="workPost">
           <option value="">请选择</option>
           <option value="2">其它</option>
@@ -82,7 +82,7 @@
         </select>
       </div>
       <div *ngIf="orgType === 3" class="form-item">
-        <p>班组</p>
+        <p>班组<font style="color:red;font-size: 1rem">*</font></p>
         <select formControlName="listGroup">
           <option value="">请选择</option>
           <option value="1">一班</option>

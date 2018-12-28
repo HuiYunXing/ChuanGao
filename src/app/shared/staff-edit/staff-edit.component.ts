@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { work_post, politics, educational, list_group } from '../../store/translate';
 import { SharedService } from '../../service/shared-service.service';
+import { isNull } from 'util';
 
 @Component({
   selector: 'app-staff-edit',
@@ -44,14 +45,34 @@ export class StaffEditComponent implements OnInit {
     page: 0,
     size: 15
   };
-
+  requiredDataList = [
+    { field: 'orgName', header: '组织名称', sortItem: 'orgCode' },
+    // { field: 'userId', header: '人员编码', sortItem: 'userId' },
+    { field: 'userName', header: '姓名', sortItem: 'userName' },
+    { field: 'birthday', header: '出生日期', sortItem: 'birthday' },
+    { field: 'userSex', header: '性别', sortItem: 'userSex' },
+    { field: 'hireDate', header: '入职时间', sortItem: 'hireDate' },
+    { field: 'userTel', header: '手机号码', sortItem: 'userTel' },
+    // { field: 'userMail', header: '邮箱', sortItem: 'userMail' },
+    { field: 'workPost', header: '岗位', sortItem: 'workPost' },
+    { field: 'educational', header: '学历', sortItem: 'educational' },
+    // { field: 'practitionerCertificate', header: '从业证书', sortItem: 'practitionerCertificate' },
+    // { field: 'collectionSysId', header: '系统工号', sortItem: 'collectionSysId' },
+    // { field: 'workLicense', header: '上岗证编号', sortItem: 'workLicense' },
+    { field: 'listGroup', header: '班组', sortItem: 'listGroup' },
+    { field: 'changeTime', header: '变更时间', sortItem: 'changeTime' },
+    // { field: 'politicalStatus', header: '政治面貌', sortItem: 'politicalStatus' },
+    // { field: 'positionalTitle', header: '职称', sortItem: 'positionalTitle'},
+    // { field: 'emergencyContact', header: '紧急联系人', sortItem: 'emergencyContact' },
+    // { field: 'emergencyPhone', header: '紧急联系电话', sortItem: 'emergencyPhone' }
+  ];
   constructor(
     private store: Store<any>,
     private sharedService: SharedService
   ) {
     this.form = new FormGroup({
       orgName: new FormControl('', Validators.nullValidator),
-      userName: new FormControl('', Validators.nullValidator),
+      userName: new FormControl(null, Validators.nullValidator),
       userSex: new FormControl('', Validators.nullValidator),
       educational: new FormControl('', Validators.nullValidator),
       practitionerCertificate: new FormControl('', Validators.nullValidator),
@@ -65,7 +86,10 @@ export class StaffEditComponent implements OnInit {
       jobDetail: new FormControl('', Validators.nullValidator),
       listGroup: new FormControl('', Validators.nullValidator),
       awardDetail: new FormControl('', Validators.nullValidator),
-      specialSkill: new FormControl('', Validators.nullValidator)
+      specialSkill: new FormControl('', Validators.nullValidator),
+      changeTime: new FormControl('', Validators.nullValidator),
+      hireDate: new FormControl('', Validators.nullValidator),
+      birthday: new FormControl('', Validators.nullValidator)
     });
     this.keys = Object.keys(this.form.value);
     this.en = {
@@ -251,9 +275,13 @@ export class StaffEditComponent implements OnInit {
   }
 
   addStaff() {
-    this.form.value.hireDate = this.sharedService.dateFormat(this.hireDate);
-    this.form.value.birthday = this.sharedService.dateFormat(this.birthday);
-    this.form.value.changeTime = this.sharedService.dateFormat(this.changeTime);
+    var validatorData: Array<String> = [];
+    // this.form.value.hireDate = this.sharedService.dateFormat(this.hireDate);
+    // this.form.value.birthday = this.sharedService.dateFormat(this.birthday);
+    // this.form.value.changeTime = this.sharedService.dateFormat(this.changeTime);
+    this.form.get('hireDate').setValue(this.sharedService.dateFormat(this.hireDate));
+    this.form.get('birthday').setValue(this.sharedService.dateFormat(this.birthday));
+    this.form.get('changeTime').setValue(this.sharedService.dateFormat(this.changeTime));
     this.form.value.workPost = +this.form.value.workPost;
     this.form.value.educational = +this.form.value.educational;
     this.form.value.listGroup = +this.form.value.listGroup;
@@ -261,9 +289,26 @@ export class StaffEditComponent implements OnInit {
     this.form.value.orgCode = this.orgCode;
     this.form.value.politicalStatus = +this.form.value.politicalStatus;
     this.form.value.positionalTitle = +this.form.value.positionalTitle;
+
+    this.requiredDataList.forEach(val => {
+      if ( this.form.get(val.field).value == null || this.form.get(val.field).value == ''){
+        if (this.orgType == 3){
+          validatorData.push(val.header);
+        } else if (val.field != 'listGroup') {
+          validatorData.push(val.header);
+        }
+      }
+    });
+
+    if(validatorData.length > 0){
+      this.sharedService.addAlert('警告',`请检查数据项：${validatorData.join(',')}不能为空`);
+      return;
+    }
+
     if (this.orgType !== 3) {
       delete this.form.value.listGroup;
     }
+
     this.sharedService.post(`/StaffMag/addStaff`, JSON.stringify(this.form.value), {
               httpOptions: true
             })
