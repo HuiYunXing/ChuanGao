@@ -30,6 +30,7 @@ export class ExecuteSingleDetailComponent implements OnInit {
     this.initData = JSON.parse(data);
     this.planData = this.initData.trainPlanData;
     this.doData = this.initData.trainDoListDataList.map(el => el.trainDoDetailDataList).reduce((a, b) => a.concat(b)).filter(el => el.id === this.id)[0];
+    console.log(this.doData);
     this.doFilePath = this.doData.trainFilePath;
     this.planFilePath = this.planData.trainPlanFile;
   }

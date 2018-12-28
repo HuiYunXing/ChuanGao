@@ -245,15 +245,19 @@ export class TrainExecuteComponent implements OnInit {
   }
 
   addStaff() {
-    this.form.value.trainTimeLong = this.trainTimeLong;
-    this.form.value.trainDoStartDate = this.dateFormat(this.doStartDate);
-    this.form.value.trainDoEndDate = this.dateFormat(this.doEndDate);
-    this.form.value.userIdList = this.activedStaffList.map(el => el.userId);
+    // this.form.value.trainTimeLong = this.trainTimeLong;
+    // this.form.value.trainDoStartDate = this.dateFormat(this.doStartDate);
+    // this.form.value.trainDoEndDate = this.dateFormat(this.doEndDate);
+    // this.form.value.userIdList = this.activedStaffList.map(el => el.userId);
+    this.trainForm.value.trainTimeLong = this.trainTimeLong;
+    this.trainForm.value.trainDoStartDate = this.dateFormat(this.doStartDate);
+    this.trainForm.value.trainDoEndDate = this.dateFormat(this.doEndDate);
+    this.trainForm.value.userIdList = this.activedStaffList.map(el => el.userId);
     const tmpObj: any = {};
-    const keys = Object.keys(this.form.value);
+    const keys = Object.keys(this.trainForm.value);
     keys.forEach(el => {
       if (el !== 'trainPlanName' && el !== 'trainDoOrgName') {
-        tmpObj[el] = this.form.value[el];
+        tmpObj[el] = this.trainForm.value[el];
       }
     });
     tmpObj.id = this.doId;
