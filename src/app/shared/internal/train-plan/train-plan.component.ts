@@ -243,16 +243,41 @@ export class TrainPlanComponent implements OnInit {
   }
 
   addStaff() {
-    this.form.value.trainTimeLong = this.trainTimeLong;
-    this.form.value.trainStartDate = this.dateFormat(this.startDate);
-    this.form.value.trainEndDate = this.dateFormat(this.endDate);
+    var requiredDataList = [
+      {'field':'trainDoOrg', 'header':'落实单位'},
+      {'field':'trainEndDate', 'header':'结束日期'},
+      {'field':'trainPlanName', 'header':'计划名称'},
+      {'field':'trainTimeLong', 'header':'培训时长'},
+      {'field':'trainPlanOrg', 'header':'发起单位'},
+      {'field':'trainStartDate', 'header':'开始日期'},
+      {'field':'trainType', 'header':'培训类型'},
+      {'field':'trainWay', 'header':'培训方式'}
+    ]
+    var validatorData: Array<String> = [];
+
+    // this.form.value.trainTimeLong = this.trainTimeLong;
+    // this.form.value.trainStartDate = this.dateFormat(this.startDate);
+    // this.form.value.trainEndDate = this.dateFormat(this.endDate);
+    this.form.get('trainTimeLong').setValue(this.trainTimeLong);
+    this.form.get('trainStartDate').setValue(this.dateFormat(this.startDate));
+    this.form.get('trainEndDate').setValue(this.dateFormat(this.endDate));
     if (this.exOrg.length !== 0) {
-      this.form.value.trainDoOrg = this.exOrg.map(el => el.data);
-    } else {
-      this.sharedService.addAlert('警告', '请选择落实单位！');
-      return false;
+      // this.form.value.trainDoOrg = this.exOrg.map(el => el.data);
+      this.form.get('trainDoOrg').setValue(this.exOrg.map(el => el.data));
     }
+
+    requiredDataList.forEach(val => {
+      if (this.form.get(val.field).value == null || this.form.get(val.field).value == ''){
+        validatorData.push(val.header);
+      }
+    })
+
+    if (validatorData.length > 0) {
+      this.sharedService.addAlert('警告',`请检查数据项：${validatorData.join(',')}不能为空`)
+    }
+
     this.form.value.trainPlanOrg = this.orgList[0].data;
+    console.log(this.form);
     this.sharedService.post(`/Train/planAdd`, JSON.stringify(this.form.value), {
               httpOptions: true,
               animation: true,
