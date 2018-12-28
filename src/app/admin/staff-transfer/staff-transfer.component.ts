@@ -124,9 +124,17 @@ export class StaffTransferComponent implements OnInit {
   }
 
   search() {
-    this.param.orgList = this.orgList.map(el => {
-      return el.data;
-    });
+    if (this.orgList.length == 0 && (this.searchName == undefined || this.searchName == '')) {
+      // this.sharedService.addAlert('警告','请选择查询条件');
+      this.getOrgInfo(this.orgCode);
+      return;
+    }
+    if (this.searchName != undefined || this.searchName != '') this.param.userName = this.searchName;
+    console.log(this.param);
+    if (this.orgList.length != 0)
+      this.param.orgList = this.orgList.map(el => {
+        return el.data;
+      });
     this.getStaff();
   }
 
@@ -214,7 +222,6 @@ export class StaffTransferComponent implements OnInit {
         this.staffSelected = [];
         this.count = res.data.count;
         this.staffList = res.data.staffDataList;
-        console.log(this.staffList);
         this.staffList.forEach(val => {
           val.listGroup = list_group[val.listGroup];
           val.educational = educational[val.educational];
@@ -225,7 +232,8 @@ export class StaffTransferComponent implements OnInit {
         this.hasData = true;
       }
     );
-    
+    delete(this.param.userName);
+    console.log(this.param);
   }
 
   getOrgInfo(orgCode) {
