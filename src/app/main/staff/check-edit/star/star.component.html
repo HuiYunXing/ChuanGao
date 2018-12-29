@@ -3,7 +3,7 @@
     <div class="add-container" *ngIf="view === 1">
       <div class="clearfix">
         <div class="select-container">
-          <span>年份</span>
+          <span>考核年度</span>
           <select [(ngModel)]="year" (change)="getStaff()">
             <option *ngFor="let year of yearList" [value]="year">{{year}}</option>
           </select>
