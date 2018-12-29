@@ -111,6 +111,9 @@ export class StarComponent implements OnInit {
   }
 
   delete() {
+    if (!confirm('确认删除选中项的数据吗')){
+      return;
+    }
     this.sharedService.get(
       `/Check/deleteCheck?id=${this.selectedId}&type=2`,
       {
@@ -170,8 +173,10 @@ export class StarComponent implements OnInit {
       }
     ).subscribe(
       res => {
+        console.log(this.resultList);
+        console.log(res.data.checkSingleDataList);
         this.resultList.forEach(el => {
-          const item = res.data.checkSingleDataList.filter(staff => staff.userId === el.userId);
+          const item = res.data.checkSingleDataList.filter(staff => staff.userId == el.userId);
           if (item.length > 0) {
             el.score = item[0].score;
           }
@@ -197,8 +202,6 @@ export class StarComponent implements OnInit {
     this.resultList = this.resultList.filter(val => {
       return val.score != '';
     });
-
-    console.log(this.resultList);
     
     this.sharedService.post(
       '/Check/setCheckStar',
@@ -218,9 +221,11 @@ export class StarComponent implements OnInit {
         animation: true
       }
     ).subscribe(
-      () => this.view = 0
+      () => {
+        this.view = 0;
+        this.toFirstPage();
+      }
     );
-    this.getStaff
   }
 
   updateExam() {

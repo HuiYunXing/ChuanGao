@@ -4,7 +4,7 @@
       <div class="clearfix">
         <div class="select-container">
           <span>年份</span>
-          <select [(ngModel)]="year">
+          <select [(ngModel)]="year" (change)="getStaff()">
             <option *ngFor="let year of yearList" [value]="year">{{year}}</option>
           </select>
         </div>
@@ -32,7 +32,7 @@
       <form [formGroup]="form">
         <div class="form-item">
           <p>收费员编号</p>
-          <input type="text" formControlName="userId">
+          <input type="text" formControlName="userId" disabled>
         </div>
         <div class="form-item">
           <p>收费员职位</p>

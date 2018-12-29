@@ -92,7 +92,6 @@ export class CheckSearchComponent implements OnInit {
     this.getInfo(event.page, this.size);
   }
 
-  // todo 功能缺失
   getInfo(page: number, size: number) {
     this.form.value.startTime = this.dateFormat(this.startTime);
     this.form.value.endTime = this.dateFormat(this.endTime);
@@ -121,6 +120,24 @@ export class CheckSearchComponent implements OnInit {
       });
   }
 
+  getOrgInfo(orgCode): Array<any> {
+    let array: Array<any> = [];
+    this.sharedService.get(`/BaseInfo/getOrgRelation?orgCode=${orgCode}`, {
+      animation: false
+    })
+    .subscribe(res => {
+      res.data.forEach(val => {
+        if (val.orgType == 3) {
+          array.push({
+            data: val.orgCode,
+            orgType: val.orgType
+          });
+        }
+      });
+    });
+    return array;
+  }
+
   check($event) {
     this.checkItem = $event.target.value;
   }
@@ -132,16 +149,16 @@ export class CheckSearchComponent implements OnInit {
   ngOnInit() {
     this.login.subscribe(res => {
       if (res) {
-        this.orgType = res.orgType;
+        this.orgType = res.orgType;        
         this.orgCode = res.orgCode;
         this.orgName = res.orgName;
-        this.orgList = [{
-          data: res.orgCode,
-          orgType: this.orgType
-        }];
-        if (res.orgType === 3) {
-          this.getInfo(this.page, this.size);
-        }
+        this.orgList = this.getOrgInfo(this.orgCode);
+        // 注意异步数据的调取问题
+        setTimeout(() => {
+          this.orgList.forEach(val => {
+            this.getInfo(this.page, this.size);
+          })
+        }, 0)
       }
     }).unsubscribe();
   }
