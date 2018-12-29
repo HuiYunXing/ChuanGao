@@ -18,6 +18,7 @@ export class StarComponent implements OnInit {
   page = 0;
   size = 15;
   starList: Array<any>;
+  starList2: Array<any>;
   hasData: boolean;
   resultList: any;
   staffList: any;
@@ -28,6 +29,14 @@ export class StarComponent implements OnInit {
   _select: any;
   workPost = work_post;
   form: FormGroup;
+  score = {
+    0: '无 星',
+    1: '一 星',
+    2: '二 星',
+    3: '三 星',
+    4: '四 星',
+    5: '五 星'
+  };
 
   constructor(
     private store: Store<any>,
@@ -38,7 +47,7 @@ export class StarComponent implements OnInit {
       { field: 'userId', header: '收费员编号' },
       { field: 'userName', header: '收费员名称' },
       { field: 'year', header: '考核年度' },
-      { field: 'score', header: '考核星级' }
+      { field: 'scoreCN', header: '考核星级' }
     ];
     this.form = new FormGroup({
       userId: new FormControl('', Validators.nullValidator),
@@ -61,7 +70,10 @@ export class StarComponent implements OnInit {
         animation: true
       }
     ).subscribe(
-      res => this.starList = res.data.checkSingleDataList
+      res => {
+        this.starList = res.data.checkSingleDataList;
+        this.starList.forEach(val => val.scoreCN = this.score[val.score]);
+      }
     );
   }
 
