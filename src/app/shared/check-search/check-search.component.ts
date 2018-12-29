@@ -130,7 +130,8 @@ export class CheckSearchComponent implements OnInit {
         if (val.orgType == 3) {
           array.push({
             data: val.orgCode,
-            orgType: val.orgType
+            orgType: val.orgType,
+            orgName: val.orgName
           });
         }
       });
@@ -151,13 +152,13 @@ export class CheckSearchComponent implements OnInit {
       if (res) {
         this.orgType = res.orgType;        
         this.orgCode = res.orgCode;
-        this.orgName = res.orgName;
         this.orgList = this.getOrgInfo(this.orgCode);
         // 注意异步数据的调取问题
         setTimeout(() => {
           this.orgList.forEach(val => {
             this.getInfo(this.page, this.size);
           })
+          this.orgName = this.orgList.map(val => val.orgName).join('，');
         }, 0)
       }
     }).unsubscribe();
