@@ -48,11 +48,15 @@
         </div>
         <div class="form-item">
           <p>考核年度</p>
-          <input type="text" formControlName="year">
+          <select formControlName="year">
+              <option *ngFor="let yearVal of yearList" [value]="yearVal">{{yearVal}}</option>
+          </select>
         </div>
         <div class="form-item">
           <p>考核月度</p>
-          <input type="text" formControlName="month">
+          <select formControlName="month">
+              <option *ngFor="let monthVal of monthList" [value]="monthVal">{{monthVal}}</option>
+          </select>
         </div>
         <div class="form-item">
           <p>综合得分</p>

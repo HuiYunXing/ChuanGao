@@ -40,12 +40,18 @@
         </div>
         <div class="form-item">
           <p>考核年度</p>
-          <input type="text" formControlName="year">
+          <select formControlName="year">
+              <option *ngFor="let yearVal of yearList" [value]="yearVal">{{yearVal}}</option>
+          </select>
         </div>
-        <div class="form-item" style="position:relative;">
+        <!-- <div class="form-item" style="position:relative;"> -->
+        <div class="form-item">
           <p>综合得分</p>
-          <p style="position:absolute;left:120px;top:36px;width:20px">星</p>
-          <input type="text" formControlName="score">
+          <!-- <p style="position:absolute;left:120px;top:36px;width:20px">星</p> -->
+          <select formControlName="score">
+            <option *ngFor="let starVal of starLevelList" [value]="starVal">{{score[starVal]}}</option>
+          </select>
+          <!-- <input type="text" formControlName="score"> -->
         </div>
       </form>
       <div class="form-item">

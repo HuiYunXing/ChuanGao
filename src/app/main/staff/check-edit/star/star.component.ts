@@ -18,7 +18,6 @@ export class StarComponent implements OnInit {
   page = 0;
   size = 15;
   starList: Array<any>;
-  starList2: Array<any>;
   hasData: boolean;
   resultList: any;
   staffList: any;
@@ -37,6 +36,9 @@ export class StarComponent implements OnInit {
     4: '四 星',
     5: '五 星'
   };
+  star: any;
+  starLevelList: Array<any> = [];
+  count: number;
 
   constructor(
     private store: Store<any>,
@@ -73,6 +75,9 @@ export class StarComponent implements OnInit {
       res => {
         this.starList = res.data.checkSingleDataList;
         this.starList.forEach(val => val.scoreCN = this.score[val.score]);
+        this.count = res.data.count;
+        this.page = 0;
+        this.hasData = true;
       }
     );
   }
@@ -115,6 +120,11 @@ export class StarComponent implements OnInit {
     ).subscribe(
       () => this.toFirstPage()
     );
+  }
+
+  paginate($event) {
+    this.page = $event.page;
+    this.getInfo();
   }
 
   toFirstPage() {
@@ -171,6 +181,25 @@ export class StarComponent implements OnInit {
   }
 
   addStar() {
+    let staffName: Array<string> = [];
+
+    this.resultList.forEach(val => {
+      val.score = val.score.split('.')[0];
+      if (val.score < 0) staffName.push(val.userName);
+      if (val.score > 5) staffName.push(val.userName);
+    });
+
+    if (staffName.length != 0){
+      this.sharedService.addAlert('警告',`请注意数据：${staffName.join('，')}的星级评分不能小于0大于5`);
+      return;
+    }
+
+    this.resultList = this.resultList.filter(val => {
+      return val.score != '';
+    });
+
+    console.log(this.resultList);
+    
     this.sharedService.post(
       '/Check/setCheckStar',
       JSON.stringify(
@@ -191,6 +220,7 @@ export class StarComponent implements OnInit {
     ).subscribe(
       () => this.view = 0
     );
+    this.getStaff
   }
 
   updateExam() {
@@ -227,5 +257,9 @@ export class StarComponent implements OnInit {
       this.yearList[i] = year - i;
     }
     this.year = year;
+    for (let i = 0; i < 6; i++){
+      this.starLevelList[i] = i;
+    }
+    this.star = 0;
   }
 }
