@@ -173,8 +173,6 @@ export class StarComponent implements OnInit {
       }
     ).subscribe(
       res => {
-        console.log(this.resultList);
-        console.log(res.data.checkSingleDataList);
         this.resultList.forEach(el => {
           const item = res.data.checkSingleDataList.filter(staff => staff.userId == el.userId);
           if (item.length > 0) {

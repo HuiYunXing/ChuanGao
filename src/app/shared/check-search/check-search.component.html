@@ -44,8 +44,9 @@
           </div>
           <div class="form-item">
             <p>选择收费员</p>
-            <select>
-              <option value="-1">请选择</option>
+            <select formControlName="userId">
+              <option value="">请选择</option>
+              <option *ngFor="let staffVal of staffList" [ngValue]="staffVal.userId">{{staffVal.userName}}</option>
             </select>
           </div>
           <div class="form-item">

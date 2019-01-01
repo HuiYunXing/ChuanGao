@@ -39,27 +39,27 @@
     <div class="update-container" *ngIf="view === 2">
       <form [formGroup]="form">
         <div class="form-item">
-          <p>收费员编号</p>
-          <input type="text" formControlName="userId">
+          <p>收费员编号<font style="color:red">*</font></p>
+          <input type="text" formControlName="userId" disabled>
         </div>
         <div class="form-item">
           <p>收费员职位</p>
           <div><span>{{workPost[_select.workPost]}}</span></div>
         </div>
         <div class="form-item">
-          <p>考核年度</p>
+          <p>考核年度<font style="color:red">*</font></p>
           <select formControlName="year">
               <option *ngFor="let yearVal of yearList" [value]="yearVal">{{yearVal}}</option>
           </select>
         </div>
         <div class="form-item">
-          <p>考核月度</p>
+          <p>考核月度<font style="color:red">*</font></p>
           <select formControlName="month">
               <option *ngFor="let monthVal of monthList" [value]="monthVal">{{monthVal}}</option>
           </select>
         </div>
         <div class="form-item">
-          <p>综合得分</p>
+          <p>综合得分<font style="color:red">*</font></p>
           <input type="text" formControlName="score">
         </div>
       </form>

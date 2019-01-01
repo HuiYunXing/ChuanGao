@@ -18,6 +18,7 @@ export class CheckSearchComponent implements OnInit {
   yearList: Array<number> = [];
   dataList: Array<any>;
   orgList: Array<any>;
+  staffList: Array<any> = [];
   page = 0;
   size = 15;
   hasData = false;
@@ -59,7 +60,8 @@ export class CheckSearchComponent implements OnInit {
       this.yearList[i] = year - i;
     }
     this.form = new FormGroup({
-      year: new FormControl(year, Validators.nullValidator)
+      year: new FormControl(year, Validators.nullValidator),
+      userId: new FormControl('', Validators.nullValidator)
     });
   }
 
@@ -76,6 +78,8 @@ export class CheckSearchComponent implements OnInit {
 
   selectedOrg($event) {
     this.orgList = $event;
+    this.staffList = [];
+    this.getStaff();
   }
 
   submit() {
@@ -139,6 +143,19 @@ export class CheckSearchComponent implements OnInit {
     return array;
   }
 
+  getStaff(){
+    this.orgList.forEach(val => {
+      this.sharedService.get(`/BaseInfo/getStationUserId?stationCode=${val.data}`,{
+        animation: true
+      })
+      .subscribe(res => {
+        res.data.forEach(val => {
+          this.staffList.push(val);
+        })
+      });
+    })
+  }
+
   check($event) {
     this.checkItem = $event.target.value;
   }
@@ -155,10 +172,9 @@ export class CheckSearchComponent implements OnInit {
         this.orgList = this.getOrgInfo(this.orgCode);
         // 注意异步数据的调取问题
         setTimeout(() => {
-          this.orgList.forEach(val => {
-            this.getInfo(this.page, this.size);
-          })
+          this.getInfo(this.page, this.size);
           this.orgName = this.orgList.map(val => val.orgName).join('，');
+          this.getStaff();
         }, 0)
       }
     }).unsubscribe();

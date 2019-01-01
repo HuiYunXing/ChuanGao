@@ -45,6 +45,10 @@ export class LevelComponent implements OnInit {
   }
 
   add() {
+    if (this.form.value.userId == '') {
+      this.sharedService.addAlert('警告','请选择收费员');
+      return;
+    }
     this.sharedService.post(
       '/Check/setCheckSkill',
       JSON.stringify(this.form.value),

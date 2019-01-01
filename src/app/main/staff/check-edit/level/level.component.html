@@ -3,7 +3,7 @@
     <div class="part-content clearfix">
       <form [formGroup]="form">
         <div class="form-item">
-          <p>收费员</p>
+          <p>收费员<font style="color: red">*</font></p>
           <select formControlName="userId" (change)="getInfo()">
             <option value="">请选择</option>
             <option *ngFor="let user of staffList" [value]="user.userId">{{user.userName}}</option>

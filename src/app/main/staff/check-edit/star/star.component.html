@@ -31,7 +31,7 @@
     <div class="update-container" *ngIf="view === 2">
       <form [formGroup]="form">
         <div class="form-item">
-          <p>收费员编号</p>
+          <p>收费员编号<font style="color:red">*</font></p>
           <input type="text" formControlName="userId" disabled>
         </div>
         <div class="form-item">
@@ -39,14 +39,14 @@
           <div><span>{{workPost[_select.workPost]}}</span></div>
         </div>
         <div class="form-item">
-          <p>考核年度</p>
+          <p>考核年度<font style="color:red">*</font></p>
           <select formControlName="year">
               <option *ngFor="let yearVal of yearList" [value]="yearVal">{{yearVal}}</option>
           </select>
         </div>
         <!-- <div class="form-item" style="position:relative;"> -->
         <div class="form-item">
-          <p>综合得分</p>
+          <p>综合得分<font style="color:red">*</font></p>
           <!-- <p style="position:absolute;left:120px;top:36px;width:20px">星</p> -->
           <select formControlName="score">
             <option *ngFor="let starVal of starLevelList" [value]="starVal">{{score[starVal]}}</option>
