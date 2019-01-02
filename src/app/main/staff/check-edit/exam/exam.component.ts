@@ -28,6 +28,7 @@ export class ExamComponent implements OnInit {
   _select: any;
   workPost = work_post;
   form: FormGroup;
+  count: number;
 
   constructor(
     private store: Store<any>,
@@ -61,7 +62,12 @@ export class ExamComponent implements OnInit {
         animation: true
       }
     ).subscribe(
-      res => this.examList = res.data.checkSingleDataList
+      res => {
+        this.examList = res.data.checkSingleDataList;
+        this.count = res.data.count;
+        this.page = res.data.pages;
+        this.hasData = true;
+      }
     )
   }
 
@@ -152,6 +158,11 @@ export class ExamComponent implements OnInit {
     }else {
       this.getInfo();
     }
+  }
+
+  paginate($event) {
+    this.page = $event.page;
+    this.getInfo();
   }
 
   check(val) {

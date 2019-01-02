@@ -30,6 +30,7 @@ export class CompositComponent implements OnInit {
   resultList: any = [];
   _select: any;
   workPost = work_post;
+  count: number;
 
   constructor(
     private store: Store<any>,
@@ -65,7 +66,12 @@ export class CompositComponent implements OnInit {
         animation: true
       }
     ).subscribe(
-      res => this.compositList = res.data.checkSingleDataList
+      res => {
+        this.compositList = res.data.checkSingleDataList;
+        this.page = res.data.pages;
+        this.count = res.data.count;
+        this.hasData = true;
+      }
     );
   }
 
@@ -95,6 +101,11 @@ export class CompositComponent implements OnInit {
     }
   }
 
+  paginate($event) {
+    this.page = $event.page;
+    this.getInfo();
+  }
+
   updateComposit() {
     this.form.value.id = this._select.id;
     this.form.value.stationCode = this.orgCode;
@@ -119,7 +130,7 @@ export class CompositComponent implements OnInit {
 
   inputFocus($event) {
     const element = $event.target as HTMLElement;
-    console.log($event);
+    // console.log($event);
     // element.focus();
   }
 
