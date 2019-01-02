@@ -176,7 +176,7 @@ export class ReturnEditComponent implements OnInit {
         this.param.orgList = [res.orgCode];
         this.param.applyUserId = res.userId;
         this.param.applyChangeType = 1;
-        this.param.back = 1;
+        this.param.back = true;
         this.getInfo();
       }
     }).unsubscribe();
