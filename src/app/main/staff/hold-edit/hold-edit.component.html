@@ -60,12 +60,13 @@
         <span>顶班申请日期</span>
         <span>开始日期</span>
         <div class="calendar-container">
-          <p-calendar [(ngModel)]="applyDateEnd" [locale]="en" [showIcon]="true" [ngModelOptions]="{standalone: true}" dateFormat="yy-mm-dd" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030"></p-calendar>
+          <p-calendar [(ngModel)]="applyDate" [locale]="en" [showIcon]="true" [ngModelOptions]="{standalone: true}" dateFormat="yy-mm-dd" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030"></p-calendar>
         </div>
         <span>结束日期</span>
         <div class="calendar-container">
           <p-calendar [(ngModel)]="applyDateEnd" [locale]="en" [showIcon]="true" [ngModelOptions]="{standalone: true}" dateFormat="yy-mm-dd" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030"></p-calendar>
         </div>
+        <!-- 申请人：<input [(ngModel)]="searchName" type="text"> -->
         <div class="search-btn" (click)="search()">查询</div>
       </div>
     </div>
