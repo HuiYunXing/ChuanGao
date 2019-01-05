@@ -37,6 +37,14 @@ export class CheckSearchComponent implements OnInit {
   orgCode: string;
   orgName: string;
   login: Observable<any> = new Observable<any>();
+  score = {
+    0: '无 星',
+    1: '一 星',
+    2: '二 星',
+    3: '三 星',
+    4: '四 星',
+    5: '五 星'
+  };
 
   constructor(
     private sharedService: SharedService,
@@ -119,10 +127,16 @@ export class CheckSearchComponent implements OnInit {
       animation: true
     })
       .subscribe(res => {
-        this.count = res.data.count;
-        this.dataList = res.data.checkDetailDataList;
-        if (res.data.count > 0) {
+        if (res.data.checkDetailDataList.length > 0) {
+          this.count = res.data.count;
+          this.dataList = res.data.checkDetailDataList;
+          this.dataList.forEach(val => {
+            if (val.star) val.star = this.score[val.star];
+          });
           this.hasData = true;
+        } else {
+          this.dataList = [];
+          this.hasData = false;
         }
       });
   }
