@@ -31,6 +31,7 @@ export class CompositComponent implements OnInit {
   _select: any;
   workPost = work_post;
   count: number;
+  userId: string;
 
   constructor(
     private store: Store<any>,
@@ -53,13 +54,18 @@ export class CompositComponent implements OnInit {
   }
 
   getInfo() {
+    let param = {
+      orgList: [this.orgCode],
+      page: this.page,
+      size: this.size,
+      year: this.year,
+      month: this.month,
+      userId: this.userId
+    }
+
     this.sharedService.post(
       '/Check/getCheckComposit',
-      JSON.stringify({
-        orgList: [this.orgCode],
-        page: this.page,
-        size: this.size
-      }),
+      JSON.stringify(param),
       {
         httpOptions: true,
         successAlert: false,
@@ -67,10 +73,15 @@ export class CompositComponent implements OnInit {
       }
     ).subscribe(
       res => {
-        this.compositList = res.data.checkSingleDataList;
-        this.page = res.data.pages;
-        this.count = res.data.count;
-        this.hasData = true;
+        if (res.data.checkSingleDataList.length > 0) {
+          this.compositList = res.data.checkSingleDataList;
+          this.page = 0;
+          this.count = res.data.count;
+          this.hasData = true;
+        } else {
+          this.compositList = [];
+          this.hasData = false;
+        }
       }
     );
   }
@@ -228,23 +239,41 @@ export class CompositComponent implements OnInit {
     )
   }
 
+  search() {
+    if (!this.year && this.month != 0) {
+      this.sharedService.addAlert('警告','选择查询月份必须选择查询的年份作为前置条件！');
+      return;
+    }
+
+    if (this.year&& this.userId != '') {
+      this.sharedService.addAlert('警告','你只能选择时间或者人员作为查询条件！');
+      return;
+    }
+
+    this.getInfo();
+  }
+
   ngOnInit() {
-    this.login.subscribe(res => {
-      if (res && res.orgType === 3) {
-        this.orgCode = res.orgCode;
-        this.getInfo();
-      }
-    }).unsubscribe();
     const year = (new Date()).getFullYear();
     for (let i = 0; i < 10; i++) {
       this.yearList[i] = year - i;
     }
-    this.year = year;
+
     const month = (new Date()).getMonth() + 1;
     for (let i = 0; i < 12; i++) {
       this.monthList[i] = i + 1;
     }
+    this.year = year;
     this.month = month;
+    this.userId = '';
+
+    this.login.subscribe(res => {
+      if (res && res.orgType === 3) {
+        this.orgCode = res.orgCode;
+        this.getInfo();
+        this.getStaff();
+      }
+    }).unsubscribe();
   }
 
 }

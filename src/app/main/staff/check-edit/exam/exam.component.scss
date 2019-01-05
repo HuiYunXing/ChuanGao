@@ -22,6 +22,45 @@
 
     .searchbar-container{
       float: right;
+
+      span{
+        font-size: 14px;
+        line-height: 40px;
+        color: #333;
+        margin: 0 10px;
+        float: left;
+      }
+
+      .select-container{
+        display: inline-block;
+  
+        span{
+          font-size: 14px;
+          line-height: 40px;
+          color: #333;
+          margin: 0 15px;
+          float: left;
+        }
+  
+        select{
+          min-width: 100px;
+          height: 40px;
+        }
+      }
+
+      .search-btn{
+        width: 100px;
+        float: right;
+        margin: 0px 10px;
+        height: 40px;
+        color: #fff;
+        background: #6c9cff;
+        line-height: 40px;
+        border-radius: 5px;
+        cursor: pointer;
+        text-indent: 40px;
+        font-size: 18px;
+      }
     }
   }
 

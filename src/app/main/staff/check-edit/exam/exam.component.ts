@@ -29,6 +29,7 @@ export class ExamComponent implements OnInit {
   workPost = work_post;
   form: FormGroup;
   count: number;
+  userId: string;
 
   constructor(
     private store: Store<any>,
@@ -49,13 +50,17 @@ export class ExamComponent implements OnInit {
   }
 
   getInfo() {
+    let param = {
+      orgList: [this.orgCode],
+      page: this.page,
+      size: this.size,
+      year: this.year,
+      userId: this.userId
+    };
+    console.log(param);
     this.sharedService.post(
       '/Check/getCheckExam',
-      JSON.stringify({
-        orgList: [this.orgCode],
-        page: this.page,
-        size: this.size
-      }),
+      JSON.stringify(param),
       {
         httpOptions: true,
         successAlert: false,
@@ -63,12 +68,17 @@ export class ExamComponent implements OnInit {
       }
     ).subscribe(
       res => {
-        this.examList = res.data.checkSingleDataList;
-        this.count = res.data.count;
-        this.page = res.data.pages;
-        this.hasData = true;
+        if (res.data.checkSingleDataList.length > 0) {
+          this.examList = res.data.checkSingleDataList;
+          this.count = res.data.count;
+          this.page = 0;
+          this.hasData = true;
+        } else {
+          this.examList = [];
+          this.hasData = false;
+        }
       }
-    )
+    );
   }
 
   getStaff() {
@@ -85,7 +95,7 @@ export class ExamComponent implements OnInit {
           return {
             userName: el.userName,
             userId: el.userId,
-            score: '0.0',
+            score: '',
             editable: false
           };
         });
@@ -218,17 +228,27 @@ export class ExamComponent implements OnInit {
     )
   }
 
+  search() {
+    if (this.year && this.userId != '') {
+      this.sharedService.addAlert('警告','你只能使用一个查询条件');
+      return;
+    }
+    this.getInfo();
+  }
+
   ngOnInit() {
-    this.login.subscribe(res => {
-      if (res && res.orgType === 3) {
-        this.orgCode = res.orgCode;
-        this.getInfo();
-      }
-    }).unsubscribe();
     const year = (new Date()).getFullYear();
+    this.userId = '';
     for (let i = 0; i < 10; i++) {
       this.yearList[i] = year - i;
     }
     this.year = year;
+    this.login.subscribe(res => {
+      if (res && res.orgType === 3) {
+        this.orgCode = res.orgCode;
+        this.getInfo();
+        this.getStaff();
+      }
+    }).unsubscribe();
   }
 }

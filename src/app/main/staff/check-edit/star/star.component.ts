@@ -39,6 +39,7 @@ export class StarComponent implements OnInit {
   star: any;
   starLevelList: Array<any> = [];
   count: number;
+  userId: string;
 
   constructor(
     private store: Store<any>,
@@ -59,13 +60,17 @@ export class StarComponent implements OnInit {
   }
 
   getInfo() {
+    let param = {
+      orgList: [this.orgCode],
+      page: this.page,
+      size: this.size,
+      year: this.year,
+      userId: this.userId
+    };
+
     this.sharedService.post(
       '/Check/getCheckStar',
-      JSON.stringify({
-        orgList: [this.orgCode],
-        page: this.page,
-        size: this.size
-      }),
+      JSON.stringify(param),
       {
         httpOptions: true,
         successAlert: false,
@@ -73,11 +78,16 @@ export class StarComponent implements OnInit {
       }
     ).subscribe(
       res => {
-        this.starList = res.data.checkSingleDataList;
-        this.starList.forEach(val => val.scoreCN = this.score[val.score]);
-        this.count = res.data.count;
-        this.page = 0;
-        this.hasData = true;
+        if (res.data.checkSingleDataList.length > 0) {
+          this.starList = res.data.checkSingleDataList;
+          this.starList.forEach(val => val.scoreCN = this.score[val.score]);
+          this.count = res.data.count;
+          this.page = 0;
+          this.hasData = true;
+        } else {
+          this.starList = [];
+          this.hasData = false;
+        }
       }
     );
   }
@@ -248,14 +258,17 @@ export class StarComponent implements OnInit {
     )
   }
 
+  search () {
+    if (this.year && this.userId != '') {
+      this.sharedService.addAlert('警告','你只能选择一个查询条件！');
+      return;
+    }
+    this.getInfo();
+  }
+
   ngOnInit() {
-    this.login.subscribe(res => {
-      if (res && res.orgType === 3) {
-        this.orgCode = res.orgCode;
-        this.getInfo();
-      }
-    }).unsubscribe();
     const year = (new Date()).getFullYear();
+    this.userId = '';
     for (let i = 0; i < 10; i++) {
       this.yearList[i] = year - i;
     }
@@ -264,5 +277,12 @@ export class StarComponent implements OnInit {
       this.starLevelList[i] = i;
     }
     this.star = 0;
+    this.login.subscribe(res => {
+      if (res && res.orgType === 3) {
+        this.orgCode = res.orgCode;
+        this.getInfo();
+        this.getStaff();
+      }
+    }).unsubscribe();
   }
 }

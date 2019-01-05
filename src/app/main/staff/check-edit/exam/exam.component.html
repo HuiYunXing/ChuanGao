@@ -4,7 +4,7 @@
       <div class="clearfix">
         <div class="select-container">
           <span>考核年度</span>
-          <select [(ngModel)]="year">
+          <select [(ngModel)]="year" (change)="getStaff()">
             <option *ngFor="let year of yearList" [value]="year">{{year}}</option>
           </select>
         </div>
@@ -61,6 +61,23 @@
         <li (click)="update()" class="btn-list-li">修改</li>
         <li (click)="delete()" class="btn-list-li">删除</li>
       </ul>
+      <div class="searchbar-container">
+        <div class="select-container">
+            <span>考核年度</span>
+            <select [(ngModel)]="year" (change)="search()">
+              <option value="">不使用该条件</option>
+              <option *ngFor="let year of yearList" [value]='year'>{{year}}年</option>
+            </select>
+        </div>
+        <div class="select-container">
+            <span>收费员</span>
+            <select [(ngModel)]="userId" (change)="search()">
+              <option value="">不使用该条件</option>
+              <option *ngFor="let staff of staffList" [value]='staff.userId'>{{staff.userName}}</option>
+            </select>
+        </div>
+        <!-- <div class="search-btn" (click)="search()">查询</div> -->
+      </div>
     </div>
   </div>
   <div class="table-container">
