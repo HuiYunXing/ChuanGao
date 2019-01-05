@@ -61,6 +61,9 @@ export class CheckSearchComponent implements OnInit {
     }
     this.form = new FormGroup({
       year: new FormControl(year, Validators.nullValidator),
+      compositScore: new FormControl('', Validators.nullValidator),
+      computerLevel: new FormControl('', Validators.nullValidator),
+      mandarinLevel: new FormControl('', Validators.nullValidator),
       userId: new FormControl('', Validators.nullValidator)
     });
   }
@@ -97,8 +100,8 @@ export class CheckSearchComponent implements OnInit {
   }
 
   getInfo(page: number, size: number) {
-    this.form.value.startTime = this.dateFormat(this.startTime);
-    this.form.value.endTime = this.dateFormat(this.endTime);
+    // this.form.value.startTime = this.dateFormat(this.startTime);
+    // this.form.value.endTime = this.dateFormat(this.endTime);
     this.form.value.orgList = this.orgList.map(el => el.data);
     const param = {
       page: page,

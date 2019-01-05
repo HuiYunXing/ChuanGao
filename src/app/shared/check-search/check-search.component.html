@@ -20,11 +20,11 @@
           </div>
           <div class="form-item">
             <p>最低综合评分</p>
-            <input type="text">
+            <input type="text" formControlName="compositScore">
           </div>
           <div class="form-item">
             <p>最低普通话等级</p>
-            <select>
+            <select formControlName="computerLevel">
               <option value="">请选择</option>
               <option value="1">三乙</option>
               <option value="2">三甲</option>
@@ -36,7 +36,8 @@
           </div>
           <div class="form-item">
             <p>最低计算机等级</p>
-            <select>
+            <select formControlName="mandarinLevel">
+              <option value="">请选择</option>
               <option value="3">其他</option>
               <option value="1">一级</option>
               <option value="2">二级</option>
