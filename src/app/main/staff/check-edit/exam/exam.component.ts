@@ -57,7 +57,7 @@ export class ExamComponent implements OnInit {
       year: this.year,
       userId: this.userId
     };
-    console.log(param);
+
     this.sharedService.post(
       '/Check/getCheckExam',
       JSON.stringify(param),
