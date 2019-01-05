@@ -81,7 +81,7 @@ export class StaffTransferComponent implements OnInit {
       { field: 'userSex', header: '性别' },
       { field: 'userTel', header: '手机号码' },
       { field: 'tempOrgName', header: '临时组织名称' },
-      { field: 'transferStartTime', header: '临时调动开始时间'}
+      { field: 'transferStartTime', header: '临时调动开始时间'},
       { field: 'transferEndTime', header: '临时调动结束时间'},
       { field: 'transferCreateTime', header: '临时调动登记时间'},
       { field: 'userMail', header: '邮箱' },
