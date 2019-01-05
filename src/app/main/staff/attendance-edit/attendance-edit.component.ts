@@ -64,11 +64,11 @@ export class AttendanceEditComponent implements OnInit {
         label: '休息',
         staff: []
       },
-      {
-        value: '5',
-        label: '请假',
-        staff: []
-      },
+      // {
+      //   value: '5',
+      //   label: '请假',
+      //   staff: []
+      // },
       {
         value: '6',
         label: '还班',
@@ -87,6 +87,31 @@ export class AttendanceEditComponent implements OnInit {
       {
         value: '9',
         label: '迟到',
+        staff: []
+      },
+      {
+        value: '10',
+        label: '事假',
+        staff: []
+      },
+      {
+        value: '13',
+        label: '病假',
+        staff: []
+      },
+      {
+        value: '12',
+        label: '补休',
+        staff: []
+      },
+      {
+        value: '11',
+        label: '年休',
+        staff: []
+      },
+      {
+        value: '15',
+        label: '婚假',
         staff: []
       }
     ];
