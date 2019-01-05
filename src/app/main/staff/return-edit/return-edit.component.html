@@ -31,6 +31,18 @@
       <ul class="btn-list cleafix">
         <li (click)="return()" class="btn-list-li">还班</li>
       </ul>
+      <div class="searchbar-container">
+          <span>登记时间</span>
+          <span>开始日期</span>
+          <div class="calendar-container">
+            <p-calendar [(ngModel)]="applyDate" [locale]="en" [showIcon]="true" [ngModelOptions]="{standalone: true}" dateFormat="yy-mm-dd" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030"></p-calendar>
+          </div>
+          <span>结束日期</span>
+          <div class="calendar-container">
+            <p-calendar [(ngModel)]="applyDateEnd" [locale]="en" [showIcon]="true" [ngModelOptions]="{standalone: true}" dateFormat="yy-mm-dd" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030"></p-calendar>
+          </div>
+          <div class="search-btn" (click)="search()">查询</div>
+        </div>
     </div>
   </div>
   <div class="table-container">

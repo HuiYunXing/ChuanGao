@@ -35,6 +35,8 @@ export class ReturnEditComponent implements OnInit {
   _select: any;
   returnStatus = ['未还班', '已还班', '已过期'];
   checkResult = ['未审核', '已通过', '未通过'];
+  applyDate: string;
+  applyDateEnd: string;
 
   constructor(
     private store: Store<any>,
@@ -110,9 +112,14 @@ export class ReturnEditComponent implements OnInit {
             el.returnCheckCN = this.checkResult[el.returnCheck];
             el.returnShiftCN = this.shiftId[el.returnShift];
           });
+        } else {
+          this.hasData = false;
+          this.shiftChangeDataList = [];
         }
       }
     )
+    delete this.param.startDate;
+    delete this.param.endDate;
   }
 
   select(val) {
@@ -181,6 +188,16 @@ export class ReturnEditComponent implements OnInit {
     }else {
       return '';
     }
+  }
+
+  search() {
+    if (this.dateFormat(this.applyDate) > this.dateFormat(this.applyDateEnd)){
+      this.sharedService.addAlert('警告','开始日期不能大于结束日期');
+      return;
+    }
+    this.param.startDate = this.dateFormat(this.applyDate);
+    this.param.endDate = this.dateFormat(this.applyDateEnd);
+    this.getInfo();
   }
 
   ngOnInit() {
