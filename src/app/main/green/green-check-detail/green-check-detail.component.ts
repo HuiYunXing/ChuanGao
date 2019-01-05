@@ -44,7 +44,6 @@ export class GreenCheckDetailComponent implements OnInit {
       res => {
         this.data = res.data;
         this.notCheck = !res.data.firstCheck;
-        console.log(this.notCheck);
         this.data.boxTypeCN = this.boxType[this.data.boxType];
         this.data.carTypeCN = this.carType[this.data.carType - 1];
         this.data.shiftCN = this.shift[this.data.shift - 1];

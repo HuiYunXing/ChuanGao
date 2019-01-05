@@ -78,7 +78,7 @@ export class ExecuteDetailComponent implements OnInit {
           el.trainDoDetailDataList = res.data.trainDoDetailDataList;
         })
         this.countList = data.trainDoListDataList;
-        console.log(data);
+        // console.log(data);
         window.sessionStorage.setItem('execute', JSON.stringify(data));
       });
   }
