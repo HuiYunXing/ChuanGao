@@ -125,9 +125,14 @@ export class HoldEditComponent implements OnInit {
           this.holdList.forEach(el => {
             el.applyTeamsCN = this.list_group[el.applyTeams];
           })
+        } else {
+          this.hasData = false;
+          this.holdList = [];
         }
       }
     )
+    delete this.param.startDate;
+    delete this.param.endDate;
   }
 
   fileChange($event) {
@@ -156,12 +161,19 @@ export class HoldEditComponent implements OnInit {
   }
 
   search() {
-    if (this.searchName && this.searchName.trim()) {
-      this.param.userName = this.searchName;
-      this.toFirstPage();
-    }else {
-      this.sharedService.addAlert('警告', '请输入要查询的人员姓名！');
+    // if (this.searchName && this.searchName.trim()) {
+    //   this.param.userName = this.searchName;
+    //   this.toFirstPage();
+    // }else {
+    //   this.sharedService.addAlert('警告', '请输入要查询的人员姓名！');
+    // }
+    if (this.applyDate > this.applyDateEnd) {
+      this.sharedService.addAlert('警告','开始日期不能大于结束日期');
+      return;
     }
+    this.param.startDate = this.dateFormat(this.applyDate);
+    this.param.endDate = this.dateFormat(this.applyDateEnd);
+    this.getInfo();
   }
 
   update() {

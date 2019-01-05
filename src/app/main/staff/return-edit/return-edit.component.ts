@@ -191,7 +191,7 @@ export class ReturnEditComponent implements OnInit {
   }
 
   search() {
-    if (this.dateFormat(this.applyDate) > this.dateFormat(this.applyDateEnd)){
+    if (this.applyDate > this.applyDateEnd){
       this.sharedService.addAlert('警告','开始日期不能大于结束日期');
       return;
     }
